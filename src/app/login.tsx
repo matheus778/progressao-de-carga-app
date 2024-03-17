@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
-import { Button, H2, Image, Separator, Text, View, XStack, YStack } from "tamagui";
+import { Button, H2, Image, View, YStack } from "tamagui";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 function Login() {
   return (
@@ -26,18 +27,15 @@ function Login() {
         <YStack gap={'$3'} w={'100%'}>
           <Button
             bg={'#0E5447'}
-            color={"#E5EDCC"}
+            color={'#E5EDCC'}
             size={'$5'}
+            icon={ <FontAwesome name='google' color={'#E5EDCC'} size={32} />}
           >
-            <Image
-              source={require('@/assets/google-logo.png')}
-              width={30}
-              height={30}
-            />
+          
             Login com a sua conta Google
           </Button>
 
-          <Link href={{pathname:'/(tabs)/settings'}} asChild>
+          <Link href={'/(tabs)'} asChild>
             <Button
               variant="outlined"
               size={'$5'}

@@ -3,7 +3,9 @@ import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { Login } from './login';
+import Home from './(tabs)/index'
 import { StatusBar } from 'expo-status-bar';
+import { Redirect } from 'expo-router'
 
 
 export default function App() {
@@ -26,7 +28,7 @@ export default function App() {
   return (
     <TamaguiProvider config={tamaguiConfig}>
       <StatusBar style='light'/>
-      <Login/>
+      <Redirect href={'/(tabs)/'}/>
     </TamaguiProvider>
   );
 }

@@ -2,7 +2,7 @@ import { Link } from "expo-router";
 import { Button, H2, Image, View, YStack } from "tamagui";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-function Login() {
+export default function Login() {
   return (
     <View
       f={1} bg={'#F9F9F9'}
@@ -35,7 +35,7 @@ function Login() {
             Login com a sua conta Google
           </Button>
 
-          <Link href={'/(tabs)'} asChild>
+          <Link href={'/register'} asChild>
             <Button
               variant="outlined"
               size={'$5'}

@@ -6,9 +6,11 @@ import { Plus, Edit3 } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
 
 export default function Home() {
+
+
   return (
     <View bg={'#F9F9F9'} f={1}>
-      <SafeAreaView style={{ backgroundColor: '#0A3D3F' }}>
+      <SafeAreaView style={{}}>
         <Header />
       </SafeAreaView>
 
@@ -41,13 +43,15 @@ export default function Home() {
             <Text color={'#686c69'} mt={2} fontSize={16}>5 exercicios</Text>
           </View>
 
-          <Button
-            bg={'#0E5447'}
-            color={'#E5EDCC'}
-            icon={<Edit3 size={32} color={'#E5EDCC'} />}
-          >
-            Registrar
-          </Button>
+          <Link href={'/recordWorkout'} asChild>
+            <Button
+              bg={'#0E5447'}
+              color={'#E5EDCC'}
+              icon={<Edit3 size={32} color={'#E5EDCC'} />}
+            >
+              Registrar
+            </Button>
+          </Link>
 
         </View>
         <Link href={'/addWorkout'} asChild>

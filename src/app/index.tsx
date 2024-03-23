@@ -2,11 +2,10 @@ import { tamaguiConfig } from '../../tamagui.config';
 import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
 import { Redirect } from 'expo-router'
 
-
 export default function App() {
+
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
@@ -24,7 +23,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Redirect href={'/login'}/>
+      <Redirect href={'/(tabs)/settings'}/>
     </TamaguiProvider>
   );
 }

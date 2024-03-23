@@ -6,8 +6,6 @@ import { Plus, Edit3 } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
 
 export default function Home() {
-
-
   return (
     <View bg={'#F9F9F9'} f={1}>
       <SafeAreaView style={{}}>

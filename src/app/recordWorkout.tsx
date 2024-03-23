@@ -7,7 +7,6 @@ export default function RecordWorkout() {
     <View>
       <View
         w={'100%'}
-       
         height={120}
         alignItems="flex-start"
         justifyContent="center"

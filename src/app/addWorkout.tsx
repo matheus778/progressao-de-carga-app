@@ -1,11 +1,11 @@
 import { CustomButton } from "@/components/CustomButton";
-import { Button, Input, ScrollView, Separator, Text, View, YStack } from "tamagui";
-import { Delete, Plus, Trash, Trash2, X } from '@tamagui/lucide-icons';
+import { Button, Group, Input, ListItem, ScrollView, Separator, Text, View, YGroup, YStack } from "tamagui";
+import { Delete, Plus, Star, Trash, Trash2, X } from '@tamagui/lucide-icons';
 import { FlatList, KeyboardAvoidingView } from "react-native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IexercisesList {
-  id: number;
+  id?: string;
   name?: string;
 }
 
@@ -16,56 +16,47 @@ interface IdataToSave {
 }
 
 export default function addWorkout() {
-  const dataToSaveToLocalStorage: IdataToSave = {}
+  const dataToSaveToLocalStorage: IdataToSave = {
+    nameWorkout:'',
+    exercices:[],
+    comment:''
+  };
 
   const [nameWorkout, setNameWorkout] = useState('');
-  const [exercisesList, setExercisesList] = useState<IexercisesList[]>([{ id: 1, name: '' }]);
   const [comment, setComment] = useState('');
-
-  const refExercisesList = useRef<IexercisesList[]>([]);
+  const [exercisesList, setExercisesList] = useState<IexercisesList[]>([]);
+  const [currentExercise, setCurrentExercise] = useState('')
 
 
   const addExercisesInList = (): void => {
-    setExercisesList([...exercisesList, {
-      id: exercisesList.length + 1,
-      name: ''
-    }]);
-  }
-
-  const setCurrentExercisesList = (id: number, text: string) => {
-    const prevState = refExercisesList.current;
-    const newExercice = {
-      id: id,
-      name: text
+    const newExercise = {
+      //gerar hash aleatorio para o id 
+      id: `#${Math.floor(Math.random() * 1028).toString(16).toUpperCase()}`, 
+      name: currentExercise
     };
 
-    const index = exercisesList.findIndex(item => item.id == id)
-    refExercisesList.current[index] = newExercice;
-    return
-
+    console.log(newExercise)
+    setExercisesList([...exercisesList, newExercise]);
+    setCurrentExercise('');
   }
 
   const deleteExerciseInList = (id: number): void => {
-    refExercisesList.current = [...exercisesList];
+    let deleteExercise = [...exercisesList];
+    deleteExercise.splice(id, 1)
 
-    const indexRemoveItem = refExercisesList.current.findIndex((item) => item.id == id)
-
-    refExercisesList.current.splice(indexRemoveItem, 1)
-    setExercisesList([...refExercisesList.current])
+    setExercisesList([...deleteExercise])
   }
 
   const handleFormSubmit = () => {
-    console.log(refExercisesList)
-
     dataToSaveToLocalStorage.nameWorkout = nameWorkout;
-    dataToSaveToLocalStorage.exercices = [...refExercisesList.current];
+    dataToSaveToLocalStorage.exercices = [...exercisesList];
     dataToSaveToLocalStorage.comment = comment;
 
-    console.log(dataToSaveToLocalStorage) // chamar função para salvar no local storage
+     console.log(dataToSaveToLocalStorage)
   }
 
   return (
-    <ScrollView f={1}>
+    <ScrollView f={1} automaticallyAdjustsScrollIndicatorInsets>
 
       <KeyboardAvoidingView
         style={{
@@ -101,52 +92,65 @@ export default function addWorkout() {
 
         <View w={'90%'} mt={'$4'}>
 
-          {exercisesList.map((item, index) => {
-            return (
-              <View key={index} mt={'$4'}>
-                <View
-                  flexDirection="row"
-                  gap={'$2'}
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Text
-                    fontSize={16}
-                    fontWeight={'900'}
-                    color={'#0E5447'}>
-                    Exercicio {index + 1}:
-                  </Text>
 
-                  {exercisesList.length - 1 == index && index != 0 ? (
-                    <Button
-                      fontSize={16}
-                      fontWeight={'900'}
+          <View mt={'$4'}>
+            <View
+              flexDirection="row"
+              gap={'$2'}
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Text
+                fontSize={16}
+                fontWeight={'900'}
+                color={'#0E5447'}>
+                Exercicios:
+              </Text>
+
+            </View>
+
+            <View>
+              {exercisesList.map((item, index) => {
+                return (
+                  <ListItem
+                    key={index}
+                    gap={'$5'}
+                    justifyContent="space-between"
+                    alignItems="center">
+                    <Text
                       color={'#0E5447'}
-                      size={"$5"}
-                      transparent
-                      onPress={() => deleteExerciseInList(item.id)}
-                      iconAfter={<Trash color={'$red10Dark'} />}
+                      fontSize={16}
                     >
-                      Remover
-                    </Button>
-                  ) : ''}
-                </View>
+                      {index + 1} - {item.name}
+                    </Text>
+                    <Button
+                      onPress={() => deleteExerciseInList(index)}
+                      color={'$red4Light'}
+                      size={'$4'}
+                      fontWeight={'900'}
+                      scaleIcon={1.4}
+                      icon={<Trash color={'$red4Light'} />} bg={'$red10Dark'}>Apagar</Button>
+                  </ListItem>
+                );
+              })}
 
-                <Input
-                  onChangeText={(text) => setCurrentExercisesList(item.id, text)}
-                  placeholder="Ex: Remada Curvada"
-                  mt={'$2'}
-                  size={'$5'}
-                  borderWidth={3}
-                  color={'#0A3D3F'}
-                  borderColor={'#AFD897'}
-                  bg={'#F4F5E2'}
-                  focusStyle={{
-                    borderColor: '#0E5447'
-                  }} />
-              </View>
-            )
-          })}
+            </View>
+
+            <Input
+              value={currentExercise}
+              onChangeText={(text) => setCurrentExercise(text)}
+              placeholder="Ex: Remada Curvada"
+              mt={'$2'}
+              size={'$5'}
+              borderWidth={3}
+              color={'#0A3D3F'}
+              borderColor={'#AFD897'}
+              bg={'#F4F5E2'}
+              focusStyle={{
+                borderColor: '#0E5447'
+              }} />
+          </View>
+
 
           <CustomButton
             onPress={addExercisesInList}
@@ -159,7 +163,7 @@ export default function addWorkout() {
             color={'#0E5447'}
             icon={<Plus color={'#0E5447'} size={24} />}
           >
-            Adicionar Exercicio
+            Adicionar a lista de exercicios
           </CustomButton>
         </View>
 

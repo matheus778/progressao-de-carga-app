@@ -1,5 +1,6 @@
-export interface IlocalStorage {
-  save?:() => void;
-  update?:() => void;
+export interface ILocalStorage{
+  key: string;
+  set:(value:object) => void;
+  get: (to:string) => void;
   delete: () => void;
 }

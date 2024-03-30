@@ -1,8 +1,8 @@
 import { CustomButton } from "@/components/CustomButton";
-import { Button, Group, Input, ListItem, ScrollView, Separator, Text, View, YGroup, YStack } from "tamagui";
-import { Delete, Plus, Star, Trash, Trash2, X } from '@tamagui/lucide-icons';
-import { FlatList, KeyboardAvoidingView } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { Button, Input, ListItem, ScrollView, Text, View } from "tamagui";
+import { Plus, Trash } from '@tamagui/lucide-icons';
+import { KeyboardAvoidingView } from "react-native";
+import { useState } from "react";
 
 interface IexercisesList {
   id?: string;

@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Redirect href={'/addWorkout'}/>
+      <Redirect href={'/(tabs)/'}/>
     </TamaguiProvider>
   );
 }

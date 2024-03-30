@@ -1,3 +1,6 @@
-import { IlocalStorage } from "./localStorageInterface";
+import { LocalStorageService } from './adapterLocalStorage';
 
-export const LocalStorage:IlocalStorage ={delete:()=>{}}
+const exercisesStorage = new LocalStorageService('exercises');
+const settingStorage = new LocalStorageService('settings');
+
+export { exercisesStorage, settingStorage };

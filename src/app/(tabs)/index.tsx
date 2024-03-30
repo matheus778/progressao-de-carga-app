@@ -9,7 +9,6 @@ import { CardHome } from "@/components/CardHome";
 
 export default function Home() {
   const { theme } = useTheme();
-
   const data =
    [
     {
@@ -98,7 +97,7 @@ export default function Home() {
         <FlatList 
         style={{maxHeight:'60%'}}
         data={data}
-        renderItem={({item})=><CardHome nameTraining={item.nameTraining} exercises={item.exercises}/>}
+        renderItem={({item,index})=><CardHome nameTraining={item.nameTraining} key={index} exercises={item.exercises}/>}
         />
 
         <Link href={'/addWorkout'} asChild>

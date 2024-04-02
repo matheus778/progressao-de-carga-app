@@ -3,35 +3,25 @@ import { Button, Input, ListItem, ScrollView, Text, View } from "tamagui";
 import { Plus, Trash } from '@tamagui/lucide-icons';
 import { KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
-
-interface IexercisesList {
-  id?: string;
-  name?: string;
-}
-
-interface IdataToSave {
-  nameWorkout?: string;
-  exercices?: IexercisesList[];
-  comment?: string;
-}
+import { workoutStorage } from '@/localStorage';
+import { IWorkout, IExercises } from '@/interfaces/IWorkout';
+import uuid from 'react-native-uuid';
 
 export default function addWorkout() {
-  const dataToSaveToLocalStorage: IdataToSave = {
-    nameWorkout:'',
-    exercices:[],
-    comment:''
+  const workout: IWorkout = {
+    nameWorkout: '',
+    exercises: [],
+    comment: ''
   };
 
   const [nameWorkout, setNameWorkout] = useState('');
   const [comment, setComment] = useState('');
-  const [exercisesList, setExercisesList] = useState<IexercisesList[]>([]);
+  const [exercisesList, setExercisesList] = useState<IExercises[]>([]);
   const [currentExercise, setCurrentExercise] = useState('')
-
 
   const addExercisesInList = (): void => {
     const newExercise = {
-      //gerar hash aleatorio para o id 
-      id: `#${Math.floor(Math.random() * 1028).toString(16).toUpperCase()}`, 
+      id: String(uuid.v4()),
       name: currentExercise
     };
 
@@ -47,17 +37,23 @@ export default function addWorkout() {
     setExercisesList([...deleteExercise])
   }
 
-  const handleFormSubmit = () => {
-    dataToSaveToLocalStorage.nameWorkout = nameWorkout;
-    dataToSaveToLocalStorage.exercices = [...exercisesList];
-    dataToSaveToLocalStorage.comment = comment;
-
-     console.log(dataToSaveToLocalStorage)
+  const handleFormSubmit = async () => {
+    workout.nameWorkout = nameWorkout;
+    workout.exercises = [...exercisesList];
+    workout.comment = comment;
+    // workoutStorage.delete();
+    // return
+    const getWorkout:IWorkout[] | [] = await workoutStorage.get();
+    if(getWorkout) {
+      const newData = [...getWorkout, workout];
+      await workoutStorage.set(newData);
+      return;
+    }
+    await workoutStorage.set(workout);
   }
 
   return (
     <ScrollView f={1} automaticallyAdjustsScrollIndicatorInsets>
-
       <KeyboardAvoidingView
         style={{
           flex: 1,

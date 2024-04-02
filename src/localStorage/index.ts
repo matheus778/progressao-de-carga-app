@@ -1,6 +1,6 @@
 import { LocalStorageService } from './adapterLocalStorage';
 
-const exercisesStorage = new LocalStorageService('exercises');
+const workoutStorage = new LocalStorageService('workoutt');
 const settingStorage = new LocalStorageService('settings');
 
-export { exercisesStorage, settingStorage };
+export { workoutStorage, settingStorage };

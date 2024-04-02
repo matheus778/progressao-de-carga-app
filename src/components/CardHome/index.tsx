@@ -3,9 +3,9 @@ import { Link } from "expo-router";
 import { Button, Text, View } from "tamagui";
 
 interface exercisesProps {
-  type?:string;
-  rep?:number;
-  weight?:number;
+  // type?:string;
+  // rep?:number;
+  // weight?:number;
 }
 
 interface CardHomeProps {
@@ -14,6 +14,7 @@ interface CardHomeProps {
 }
 
 export function CardHome({nameTraining, exercises}:CardHomeProps) {
+  console.log(nameTraining)
   return( 
     <View
     mt={'$5'}

@@ -1,24 +1,22 @@
-import { Button, H3, Paragraph, Separator, Text, View } from "tamagui";
+import { H3, Separator, Text, View } from "tamagui";
 import { Header } from "../../components/Header";
-import { FlatList, SafeAreaView } from "react-native";
+import { Alert, FlatList, SafeAreaView } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
-import { Plus, Edit3 } from '@tamagui/lucide-icons';
+import { Plus } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
-import { useTheme } from "@/context/themeContext";
+import { useTheme } from "@/hooks";
 import { CardHome } from "@/components/CardHome";
 import { workoutStorage } from "@/localStorage";
-import { useState, useEffect } from "react";
-import { IWorkout } from '@/interfaces/IWorkout';
+import { useEffect } from "react";
+import { useWorkout } from '@/hooks';
 
 export default function Home() {
   const { theme } = useTheme();
-
-  const [data, setData] = useState<IWorkout[] | []>([]);
-  
+  const { workout, setWorkout } = useWorkout();
   useEffect(() => {
     const getWorkouts = async () => {  
       const workouts = await workoutStorage.get()
-      setData(workouts)
+      setWorkout(workouts)
     }
     getWorkouts();
   },[])
@@ -34,18 +32,26 @@ export default function Home() {
         <Separator borderColor={'#0E5447'} />
 
 
-        {data?.length > 0 ? (
+        {workout?.length > 0 ? (
           <FlatList
           style={{ maxHeight: '60%' }}
-          data={data}
+          data={workout}
           renderItem={({ item, index }) => <CardHome nameTraining={item.nameWorkout} key={index} exercises={item.exercises} />}
         />
-        ):''}
+        ):<NoWorkout />}
 
         <Link href={'/addWorkout'} asChild>
         <CustomButton mt={10} icon={Plus}>Adicionar Treino</CustomButton>
         </Link>
       </View>
+    </View>
+  )
+}
+
+const NoWorkout = () => {
+  return (
+    <View>
+      <Text>Nenhum treino para registrar, começe adicionando um novo treino a sua lista.</Text>
     </View>
   )
 }

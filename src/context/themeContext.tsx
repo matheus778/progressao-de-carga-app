@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 
-
 interface ThemeProps {
   name: string;
   primary: string;
@@ -42,7 +41,7 @@ const darkTheme:ThemeProps = {
   bottomTint:'#E5EDCC'
 }
 
-const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
+export const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
 export const ThemeProvider = ({children} :{children: React.ReactNode})=>{
   const [theme, setTheme] = useState<ThemeProps>({...lightTheme});
@@ -55,9 +54,4 @@ export const ThemeProvider = ({children} :{children: React.ReactNode})=>{
       {children}
     </ThemeContext.Provider>
   )
-}
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  return context
 }

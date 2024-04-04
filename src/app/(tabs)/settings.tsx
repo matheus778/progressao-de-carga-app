@@ -1,5 +1,5 @@
 
-import { useTheme } from "@/context/themeContext";
+import { useTheme } from "@/hooks";
 import { Lightbulb, Moon, Sun } from "@tamagui/lucide-icons";
 import { setStatusBarStyle } from "expo-status-bar";
 import { useEffect, useState } from "react";

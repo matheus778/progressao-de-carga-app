@@ -1,7 +1,7 @@
 import React from 'react';
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
-import { useTheme } from '@/context/themeContext';
+import { useTheme } from '@/hooks';
 
 const options = {
   tabBarActiveTintColor: 'blue', headerShown: false,
@@ -9,14 +9,14 @@ const options = {
   tabBarStyle: {
     paddingBottom: 5,
     paddingTop: 5,
-    height: 60, 
+    height: 60,
   }
 }
 
 export default function TabLayout() {
   const { theme } = useTheme();
   return (
-    <Tabs screenOptions={{...options,tabBarStyle:{backgroundColor:theme.bottomBg}}}>
+    <Tabs screenOptions={{ ...options, tabBarStyle: { backgroundColor: theme.bottomBg } }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -30,12 +30,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="activity"
         options={{
-         headerTintColor:'#0A3D3F',
+          headerTintColor: '#0A3D3F',
           title: 'Atividade',
           tabBarIcon: ({ color, focused }) => <IonIcons size={28} name="analytics-sharp"
             color={focused ? theme.bottomTint : color} />,
-            tabBarActiveTintColor: theme.bottomTint
-          }}
+          tabBarActiveTintColor: theme.bottomTint
+        }}
       />
 
       <Tabs.Screen
@@ -44,8 +44,8 @@ export default function TabLayout() {
           title: 'Configurações',
           tabBarIcon: ({ color, focused }) => <IonIcons size={28} name="settings-sharp"
             color={focused ? theme.bottomTint : color} />,
-            tabBarActiveTintColor: theme.bottomTint
-          }}
+          tabBarActiveTintColor: theme.bottomTint
+        }}
       />
     </Tabs>
   );

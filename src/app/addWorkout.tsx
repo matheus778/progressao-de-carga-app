@@ -1,11 +1,13 @@
 import { CustomButton } from "@/components/CustomButton";
 import { Button, Input, ListItem, ScrollView, Text, View } from "tamagui";
 import { Plus, Trash } from '@tamagui/lucide-icons';
-import { KeyboardAvoidingView } from "react-native";
+import { Alert, KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
+import { useWorkout } from "@/hooks";
 import { workoutStorage } from '@/localStorage';
 import { IWorkout, IExercises } from '@/interfaces/IWorkout';
 import uuid from 'react-native-uuid';
+import { router } from 'expo-router';
 
 export default function addWorkout() {
   const workout: IWorkout = {
@@ -17,15 +19,14 @@ export default function addWorkout() {
   const [nameWorkout, setNameWorkout] = useState('');
   const [comment, setComment] = useState('');
   const [exercisesList, setExercisesList] = useState<IExercises[]>([]);
-  const [currentExercise, setCurrentExercise] = useState('')
+  const [currentExercise, setCurrentExercise] = useState('');
+  const { setWorkout } = useWorkout();
 
   const addExercisesInList = (): void => {
     const newExercise = {
       id: String(uuid.v4()),
       name: currentExercise
     };
-
-    console.log(newExercise)
     setExercisesList([...exercisesList, newExercise]);
     setCurrentExercise('');
   }
@@ -41,15 +42,20 @@ export default function addWorkout() {
     workout.nameWorkout = nameWorkout;
     workout.exercises = [...exercisesList];
     workout.comment = comment;
-    // workoutStorage.delete();
-    // return
-    const getWorkout:IWorkout[] | [] = await workoutStorage.get();
-    if(getWorkout) {
+
+    const getWorkout: IWorkout[] | [] = await workoutStorage.get();
+    if (getWorkout) {
       const newData = [...getWorkout, workout];
       await workoutStorage.set(newData);
-      return;
+      setWorkout(newData)
+      Alert.alert('Novo treino adicionado com sucesso','O treino já está disponivel na tela inicial');
+      router.back();
+      return 
     }
     await workoutStorage.set(workout);
+    setWorkout([workout]);
+    Alert.alert('Novo treino adicionado com sucesso','O treino já está disponivel na tela inicial');
+    router.back();
   }
 
   return (

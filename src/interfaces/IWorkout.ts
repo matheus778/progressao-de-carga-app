@@ -1,9 +1,7 @@
 interface IRegisterWorkout {
-  id?: string;
+  id: string;
   date: string;
-  warming: {
-
-  },
+  warming: {},
   set: {},
   superSet: {}
 }

@@ -3,7 +3,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Input, InputProps, ScrollView, Separator, Text, View } from "tamagui";
 import { useWorkout } from '@/hooks';
 import { useEffect, useState } from "react";
-import { IRegisterWorkout, IWorkout } from "@/interfaces/IWorkout";
+import { IWorkout } from "@/interfaces/IWorkout";
+import { IRegisterWorkout } from "@/interfaces/IRegisterWorkout";
 import { getDate } from '@/utils/getDate';
 import { useLocalSearchParams } from 'expo-router';
 

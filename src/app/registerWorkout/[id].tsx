@@ -1,7 +1,7 @@
 import { CustomButton } from "@/components/CustomButton";
 import { FontAwesome } from "@expo/vector-icons";
 import { Input, InputProps, ScrollView, Separator, Text, View } from "tamagui";
-import { useWorkout } from '@/hooks';
+import { useRegisterWorkout, useWorkout } from '@/hooks';
 import { useEffect, useState } from "react";
 import { IWorkout } from "@/interfaces/IWorkout";
 import { IRegisterWorkout } from "@/interfaces/IRegisterWorkout";
@@ -11,13 +11,15 @@ import { useLocalSearchParams } from 'expo-router';
 let registerData: IRegisterWorkout[] = [];
 
 export default function RegisterWorkout() {
-  const { workout, setWorkout } = useWorkout();
+  const { workout } = useWorkout();
   const [register, setRegister] = useState<IWorkout>({} as IWorkout);
   const { id } = useLocalSearchParams()
+  const { registerWorkout } = useRegisterWorkout();
 
   useEffect(() => {
     const searchIndex = workout.findIndex(el => el.id == id);
     setRegister(workout[searchIndex]);
+    console.log(registerWorkout)
   }, []);
 
   useEffect(() => {
@@ -44,7 +46,8 @@ export default function RegisterWorkout() {
     }
 
   const handleFormSubmit = () => {
-    console.log(registerData)
+    console.clear()
+    console.table(registerData)
   }
 
   return (

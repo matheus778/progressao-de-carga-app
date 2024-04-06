@@ -1,5 +1,5 @@
 import { IWorkout } from "@/interfaces/IWorkout";
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 interface IWorkoutContext {
   workout:IWorkout[];

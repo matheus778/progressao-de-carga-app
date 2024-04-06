@@ -14,12 +14,12 @@ export default function Home() {
   const { theme } = useTheme();
   const { workout, setWorkout } = useWorkout();
   useEffect(() => {
-    const getWorkouts = async () => {  
+    const getWorkouts = async () => {
       const workouts = await workoutStorage.get()
       setWorkout(workouts)
     }
     getWorkouts();
-  },[])
+  }, [])
 
   return (
     <View bg={theme.bg} f={1}>
@@ -34,14 +34,20 @@ export default function Home() {
 
         {workout?.length > 0 ? (
           <FlatList
-          style={{ maxHeight: '60%' }}
-          data={workout}
-          renderItem={({ item, index }) => <CardHome nameTraining={item.nameWorkout} key={index} exercises={item.exercises} />}
-        />
-        ):<NoWorkout />}
+            style={{ maxHeight: '60%' }}
+            data={workout}
+            renderItem={({ item, index }) =>
+              <CardHome
+                nameTraining={item.nameWorkout} 
+                key={index}
+                id={item.id}
+                exercises={item.exercises} 
+              />}
+          />
+        ) : <NoWorkout />}
 
         <Link href={'/addWorkout'} asChild>
-        <CustomButton mt={10} icon={Plus}>Adicionar Treino</CustomButton>
+          <CustomButton mt={10} icon={Plus}>Adicionar Treino</CustomButton>
         </Link>
       </View>
     </View>

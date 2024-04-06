@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Redirect  href={'/(tabs)/'}/>
+      <Redirect href={'/(tabs)/'}/>
     </TamaguiProvider>
   );
 }

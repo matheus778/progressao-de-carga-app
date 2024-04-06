@@ -5,15 +5,16 @@ import { Alert, KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
 import { useWorkout } from "@/hooks";
 import { workoutStorage } from '@/localStorage';
-import { IWorkout, IExercises } from '@/interfaces/IWorkout';
+import { IWorkout, IExercises, IRegisterWorkout } from '@/interfaces/IWorkout';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
 
 export default function addWorkout() {
   const workout: IWorkout = {
+    id: String(uuid.v4()),
     nameWorkout: '',
     exercises: [],
-    comment: ''
+    comment: '',
   };
 
   const [nameWorkout, setNameWorkout] = useState('');
@@ -23,10 +24,11 @@ export default function addWorkout() {
   const { setWorkout } = useWorkout();
 
   const addExercisesInList = (): void => {
-    const newExercise = {
+    const newExercise: IExercises = {
       id: String(uuid.v4()),
-      name: currentExercise
+      name: currentExercise,
     };
+    
     setExercisesList([...exercisesList, newExercise]);
     setCurrentExercise('');
   }
@@ -43,19 +45,24 @@ export default function addWorkout() {
     workout.exercises = [...exercisesList];
     workout.comment = comment;
 
+    // workoutStorage.delete();
+    // setWorkout([])
+    // return
+
     const getWorkout: IWorkout[] | [] = await workoutStorage.get();
     if (getWorkout) {
       const newData = [...getWorkout, workout];
       await workoutStorage.set(newData);
       setWorkout(newData)
-      Alert.alert('Novo treino adicionado com sucesso','O treino já está disponivel na tela inicial');
-      router.back();
-      return 
+      console.log(newData)
+      Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
+      // router.back();
+      return
     }
     await workoutStorage.set(workout);
     setWorkout([workout]);
-    Alert.alert('Novo treino adicionado com sucesso','O treino já está disponivel na tela inicial');
-    router.back();
+    Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
+    // router.back();
   }
 
   return (

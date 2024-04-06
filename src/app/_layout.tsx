@@ -17,7 +17,7 @@ export default function Layout() {
               headerTitleStyle: { color: '#0A3D3F' },
               headerBackTitleVisible: false,
             }} />
-          <Stack.Screen name='recordWorkout' options={{
+          <Stack.Screen name='registerWorkout/[id]' options={{
             title: 'Registrar Treino', headerTitleStyle: { color: '#0A3D3F' },
           }} />
 

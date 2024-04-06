@@ -1,18 +1,23 @@
-interface IRegisterWorkout {
-  id: string;
+type RegisterInputType = {
+  rep: number;
+  weight: number;
+}
+
+export interface IRegisterWorkout {
+  idExercise: string;
   date: string;
-  warming: {},
-  set: {},
-  superSet: {}
+  warming: RegisterInputType,
+  set: RegisterInputType,
+  superSet: RegisterInputType
 }
 
 export interface IExercises {
   id: string;
   name: string;
-  registers?: IRegisterWorkout[]
 }
 
 export interface IWorkout {
+  id:string;
   nameWorkout: string;
   exercises: IExercises[]
   comment: string;

@@ -1,18 +1,18 @@
 import { H3, Separator, Text, View } from "tamagui";
 import { Header } from "../../components/Header";
-import { Alert, FlatList, SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { Plus } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
-import { useTheme } from "@/hooks";
 import { CardHome } from "@/components/CardHome";
 import { workoutStorage } from "@/localStorage";
 import { useEffect } from "react";
-import { useWorkout } from '@/hooks';
+import { useWorkout, useTheme } from '@/hooks';
 
 export default function Home() {
   const { theme } = useTheme();
   const { workout, setWorkout } = useWorkout();
+
   useEffect(() => {
     const getWorkouts = async () => {
       const workouts = await workoutStorage.get()
@@ -28,8 +28,8 @@ export default function Home() {
       </SafeAreaView>
 
       <View height={'100%'} w={'90%'} alignSelf="center">
-        <H3 color={'#0E5447'} mt={'$4'}>Seus Treinos</H3>
-        <Separator borderColor={'#0E5447'} />
+        <H3 color={theme.textColor} mt={'$4'}>Seus Treinos</H3>
+        <Separator borderColor={theme.textColor} />
 
         {workout?.length > 0 ? (
           <FlatList

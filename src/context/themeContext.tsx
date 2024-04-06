@@ -24,7 +24,7 @@ const lightTheme:ThemeProps = {
   bg:'#F9F9F9',
   textColor:'#0A3D3F',
   bgCard:'#F4F5E2',
-  bgBorder:'#0E5447',
+  bgBorder:'#0A3D3F',
   bottomBg:'#f5f5f5',
   bottomTint:'#0A3D3F'
 }
@@ -36,7 +36,7 @@ const darkTheme:ThemeProps = {
   bg:'#141917',
   textColor:'#E5EDCC',
   bgCard:'#404443',
-  bgBorder:'#0E5447',
+  bgBorder:'#E5EDCC',
   bottomBg:'#121313',
   bottomTint:'#E5EDCC'
 }

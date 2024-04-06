@@ -7,6 +7,9 @@ import { IWorkout } from "@/interfaces/IWorkout";
 import { IRegisterWorkout } from "@/interfaces/IRegisterWorkout";
 import { getDate } from '@/utils/getDate';
 import { useLocalSearchParams } from 'expo-router';
+import { registerWorkoutStorage } from "@/localStorage";
+import { Alert } from "react-native";
+import { router } from 'expo-router';
 
 let registerData: IRegisterWorkout[] = [];
 
@@ -14,12 +17,11 @@ export default function RegisterWorkout() {
   const { workout } = useWorkout();
   const [register, setRegister] = useState<IWorkout>({} as IWorkout);
   const { id } = useLocalSearchParams()
-  const { registerWorkout } = useRegisterWorkout();
+  const { setRegisterWorkout } = useRegisterWorkout();
 
   useEffect(() => {
     const searchIndex = workout.findIndex(el => el.id == id);
     setRegister(workout[searchIndex]);
-    console.log(registerWorkout)
   }, []);
 
   useEffect(() => {
@@ -45,9 +47,11 @@ export default function RegisterWorkout() {
       registerData[index][phase][type] = Number(text);
     }
 
-  const handleFormSubmit = () => {
-    console.clear()
-    console.table(registerData)
+  const handleFormSubmit = async () => {
+    await registerWorkoutStorage.set(registerData);
+    setRegisterWorkout(registerData);
+    Alert.alert('Treino registrado com sucesso.');
+    router.back();
   }
 
   return (

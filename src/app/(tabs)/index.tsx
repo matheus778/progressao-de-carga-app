@@ -31,7 +31,6 @@ export default function Home() {
         <H3 color={'#0E5447'} mt={'$4'}>Seus Treinos</H3>
         <Separator borderColor={'#0E5447'} />
 
-
         {workout?.length > 0 ? (
           <FlatList
             style={{ maxHeight: '60%' }}

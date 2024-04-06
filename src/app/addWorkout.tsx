@@ -5,7 +5,7 @@ import { Alert, KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
 import { useWorkout } from "@/hooks";
 import { workoutStorage } from '@/localStorage';
-import { IWorkout, IExercises, IRegisterWorkout } from '@/interfaces/IWorkout';
+import { IWorkout, IExercises } from '@/interfaces/IWorkout';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
 
@@ -45,10 +45,6 @@ export default function addWorkout() {
     workout.exercises = [...exercisesList];
     workout.comment = comment;
 
-    // workoutStorage.delete();
-    // setWorkout([])
-    // return
-
     const getWorkout: IWorkout[] | [] = await workoutStorage.get();
     if (getWorkout) {
       const newData = [...getWorkout, workout];
@@ -56,13 +52,13 @@ export default function addWorkout() {
       setWorkout(newData)
       console.log(newData)
       Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
-      // router.back();
+      router.back();
       return
     }
     await workoutStorage.set(workout);
     setWorkout([workout]);
     Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
-    // router.back();
+    router.back();
   }
 
   return (

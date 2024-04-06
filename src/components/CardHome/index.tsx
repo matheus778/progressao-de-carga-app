@@ -1,36 +1,30 @@
+import { IExercises } from "@/interfaces/IWorkout";
 import { Edit3 } from "@tamagui/lucide-icons";
 import { Link } from "expo-router";
 import { Button, Text, View } from "tamagui";
 
-interface exercisesProps {
-  // type?:string;
-  // rep?:number;
-  // weight?:number;
-}
-
 interface CardHomeProps {
   id: string;
   nameTraining?: string;
-  exercises?: exercisesProps[];
+  exercises?: IExercises[];
 }
 
 export function CardHome({ id, nameTraining, exercises }: CardHomeProps) {
-  console.log(nameTraining)
   return (
     <View
-      mt={'$5'}
+      mt={'$4'}
       borderRadius={'$2'}
       width={'100%'}
       flexDirection="row"
       backgroundColor={'#F4F5E2'}
       borderColor={'#0E5447'}
-      borderWidth={4}
-      paddingBottom={'$2'}
-      paddingTop={'$2'}
+      borderWidth={1}
+      paddingVertical={'$2'}
       alignItems="center"
-      justifyContent="space-around"
+      justifyContent="space-between"
+      paddingHorizontal={'$2'}
     >
-      <View jc={'center'} ai={'center'}>
+      <View jc={'center'} ai={'flex-start'}>
         <Text
           wordWrap="break-word"
           maxWidth={200}

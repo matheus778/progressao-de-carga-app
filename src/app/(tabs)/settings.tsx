@@ -1,4 +1,3 @@
-
 import { useTheme } from "@/hooks";
 import { Lightbulb, Moon, Sun } from "@tamagui/lucide-icons";
 import { setStatusBarStyle } from "expo-status-bar";
@@ -8,7 +7,7 @@ import { ListItem, Switch, Text, View, YGroup } from "tamagui";
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme();
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
   isChecked ? toggleTheme('dark') : toggleTheme('light');

@@ -5,18 +5,22 @@ import { CustomButton } from "../../components/CustomButton";
 import { Plus } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
 import { CardHome } from "@/components/CardHome";
-import { workoutStorage } from "@/localStorage";
+import { registerWorkoutStorage, workoutStorage } from "@/localStorage";
 import { useEffect } from "react";
-import { useWorkout, useTheme } from '@/hooks';
+import { useWorkout, useTheme, useRegisterWorkout } from '@/hooks';
 
 export default function Home() {
   const { theme } = useTheme();
   const { workout, setWorkout } = useWorkout();
+  const { setRegisterWorkout } = useRegisterWorkout();
 
   useEffect(() => {
-    const getWorkouts = async () => {
+      const getWorkouts = async() => {
       const workouts = await workoutStorage.get()
-      setWorkout(workouts)
+      const registerWorkout = await registerWorkoutStorage.get();
+
+      setWorkout(workouts.reverse());
+      setRegisterWorkout(registerWorkout);
     }
     getWorkouts();
   }, [])
@@ -33,7 +37,7 @@ export default function Home() {
 
         {workout?.length > 0 ? (
           <FlatList
-            style={{ maxHeight: '60%' }}
+            style={{ maxHeight: '60%'}}
             data={workout}
             renderItem={({ item, index }) =>
               <CardHome

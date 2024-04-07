@@ -4,14 +4,15 @@ import { Input, InputProps, ScrollView, Separator, Text, View } from "tamagui";
 import { useRegisterWorkout, useWorkout } from '@/hooks';
 import { useEffect, useState } from "react";
 import { IWorkout } from "@/interfaces/IWorkout";
-import { IRegisterWorkout } from "@/interfaces/IRegisterWorkout";
+import { IRegisterWorkout, IRegisterWorkout_Data } from "@/interfaces/IRegisterWorkout";
 import { getDate } from '@/utils/getDate';
 import { useLocalSearchParams } from 'expo-router';
 import { registerWorkoutStorage } from "@/localStorage";
 import { Alert } from "react-native";
 import { router } from 'expo-router';
+import uuid from 'react-native-uuid';
 
-let registerData: IRegisterWorkout[] = [];
+let registerData: IRegisterWorkout_Data[] = [];
 
 export default function RegisterWorkout() {
   const { workout } = useWorkout();
@@ -31,6 +32,7 @@ export default function RegisterWorkout() {
           registerData[i] = {
             date: getDate(),
             idExercise: register.exercises[i].id,
+            nameExercise: register.exercises[i].name,
             warming: { rep: 0, weight: 0 },
             set: { rep: 0, weight: 0 },
             superSet: { rep: 0, weight: 0 },
@@ -42,16 +44,32 @@ export default function RegisterWorkout() {
 
   type InputType = 'rep' | 'weight';
   type PhaseType = 'warming' | 'set' | 'superSet';
+
   const handleRegisterInput =
     (type: InputType, phase: PhaseType, index: number, text: string) => {
       registerData[index][phase][type] = Number(text);
     }
 
   const handleFormSubmit = async () => {
-    await registerWorkoutStorage.set(registerData);
-    setRegisterWorkout(registerData);
-    Alert.alert('Treino registrado com sucesso.');
-    router.back();
+    const searchIndex = workout.findIndex(el => el.id == id);
+
+    const data: IRegisterWorkout = {
+      idWorkout: id as string,
+      workoutName: workout[searchIndex].nameWorkout,
+      date: getDate(),
+      data: registerData
+    }
+
+    const getRegisterWorkout = await registerWorkoutStorage.get();
+    if (getRegisterWorkout) {
+      const newData = [...getRegisterWorkout, data];
+      await registerWorkoutStorage.set(newData);
+      setRegisterWorkout(newData);
+      return;
+    }
+
+    await registerWorkoutStorage.set(data);
+    setRegisterWorkout([data])
   }
 
   return (

@@ -2,7 +2,9 @@ import { IExercises } from "@/interfaces/IWorkout";
 import { Edit3 } from "@tamagui/lucide-icons";
 import { Link } from "expo-router";
 import { Button, Text, View } from "tamagui";
-import { useTheme } from '@/hooks';
+import { useTheme, useWorkout } from '@/hooks';
+import { Alert } from "react-native";
+import { workoutStorage } from "@/localStorage";
 
 interface CardHomeProps {
   id: string;
@@ -11,17 +13,44 @@ interface CardHomeProps {
 }
 
 export function CardHome({ id, nameTraining, exercises }: CardHomeProps) {
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
+  const { workout, setWorkout } = useWorkout();
+
+  const handleDeleteWorkout = (id: string) => {
+    Alert.alert(
+      'Deletar treino',
+      'Deja realmente deletar esse treino ? essa ação não podera ser desfeita!',
+      [
+        {
+          text: 'cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'deletar',
+          style: 'destructive',
+          onPress: async () => {
+            const index = workout.findIndex(el => el.id == id);
+            const deleteWorkout = [...workout];
+
+            deleteWorkout.splice(index, 1);
+            await workoutStorage.set(deleteWorkout)
+            setWorkout([...deleteWorkout]);
+          }
+        }
+      ]
+    )
+  }
 
   return (
     <View
+      onLongPress={() => handleDeleteWorkout(id)}
       mt={'$4'}
       borderRadius={'$1'}
       width={'100%'}
       flexDirection="row"
       backgroundColor={theme.bgCard}
       borderColor={theme.bgBorder}
-      borderWidth={2}
+      borderWidth={1}
       paddingVertical={'$2'}
       alignItems="center"
       justifyContent="space-between"
@@ -42,9 +71,10 @@ export function CardHome({ id, nameTraining, exercises }: CardHomeProps) {
 
       <Link href={`/registerWorkout/${id}`} asChild>
         <Button
+          size={'$3'}
           bg={theme.primary}
           color={'#E5EDCC'}
-          icon={<Edit3 size={32} color={'#E5EDCC'} />}
+          icon={<Edit3 size={18} color={'#E5EDCC'} />}
         >
           Registrar
         </Button>

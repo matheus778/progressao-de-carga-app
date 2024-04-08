@@ -15,7 +15,7 @@ export default function Home() {
   const { setRegisterWorkout } = useRegisterWorkout();
 
   useEffect(() => {
-      const getWorkouts = async() => {
+    const getWorkouts = async () => {
       const workouts = await workoutStorage.get()
       const registerWorkout = await registerWorkoutStorage.get();
 
@@ -37,18 +37,17 @@ export default function Home() {
 
         {workout?.length > 0 ? (
           <FlatList
-            style={{ maxHeight: '60%'}}
+            style={{ maxHeight: '65%' }}
             data={workout}
             renderItem={({ item, index }) =>
               <CardHome
-                nameTraining={item.nameWorkout} 
+                nameTraining={item.nameWorkout}
                 key={index}
                 id={item.id}
-                exercises={item.exercises} 
+                exercises={item.exercises}
               />}
           />
         ) : <NoWorkout />}
-
         <Link href={'/addWorkout'} asChild>
           <CustomButton mt={10} icon={Plus}>Adicionar Treino</CustomButton>
         </Link>

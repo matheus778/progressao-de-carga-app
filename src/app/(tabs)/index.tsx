@@ -8,6 +8,7 @@ import { CardHome } from "@/components/CardHome";
 import { registerWorkoutStorage, workoutStorage } from "@/localStorage";
 import { useEffect } from "react";
 import { useWorkout, useTheme, useRegisterWorkout } from '@/hooks';
+import LottieView from 'lottie-react-native';
 
 export default function Home() {
   const { theme } = useTheme();
@@ -57,9 +58,32 @@ export default function Home() {
 }
 
 const NoWorkout = () => {
+  const { theme } = useTheme();
+
   return (
-    <View>
-      <Text>Nenhum treino para registrar, começe adicionando um novo treino a sua lista.</Text>
+    <View
+      mt={'$5'}
+      alignContent="center"
+      justifyContent="center"
+    >
+      <Text 
+      fontSize={18}
+      fontWeight={'900'}
+      color={theme.textColor}
+      textAlign="center"
+      >
+        Nenhum treino para registrar, começe adicionando um novo treino a sua lista.
+        <LottieView
+        autoPlay
+          style={{
+            width: 300,
+            height: 300,
+          }}
+          source={require('@/assets/animation-home.json')}
+        >
+
+        </LottieView>
+      </Text>
     </View>
   )
 }

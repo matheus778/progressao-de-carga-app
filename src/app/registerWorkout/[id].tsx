@@ -8,9 +8,6 @@ import { IRegisterWorkout, IRegisterWorkout_Data } from "@/interfaces/IRegisterW
 import { getDate } from '@/utils/getDate';
 import { useLocalSearchParams } from 'expo-router';
 import { registerWorkoutStorage } from "@/localStorage";
-import { Alert } from "react-native";
-import { router } from 'expo-router';
-import uuid from 'react-native-uuid';
 
 let registerData: IRegisterWorkout_Data[] = [];
 
@@ -57,7 +54,8 @@ export default function RegisterWorkout() {
       idWorkout: id as string,
       workoutName: workout[searchIndex].nameWorkout,
       date: getDate(),
-      data: registerData
+      data: registerData,
+      comment: workout[searchIndex].comment
     }
 
     const getRegisterWorkout = await registerWorkoutStorage.get();

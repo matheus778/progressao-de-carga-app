@@ -12,7 +12,7 @@ export default function Layout() {
             <Stack.Screen name='index' options={{ headerShown: false }} />
             <Stack.Screen name='login' options={{ headerShown: false }} />
             <Stack.Screen name='register' options={{ headerShown: false }} />
-            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            <Stack.Screen name='(tabs)' options={{ headerShown: false, title: 'Home' }} />
             <Stack.Screen name='addWorkout'
               options={{
                 title: 'Adicionar Treino',
@@ -22,6 +22,11 @@ export default function Layout() {
             <Stack.Screen name='registerWorkout/[id]' options={{
               title: 'Registrar Treino', headerTitleStyle: { color: '#0A3D3F' },
             }} />
+
+            <Stack.Screen name='registerWorkout/details/[id]'
+              options={{
+                title: 'Visualizar Treino', headerTitleStyle: { color: '#0A3D3F' },
+              }} />
 
           </Stack>
         </RegisterWorkoutProvider>

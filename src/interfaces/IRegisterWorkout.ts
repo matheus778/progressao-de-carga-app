@@ -17,4 +17,5 @@ export interface IRegisterWorkout { // pegar valores de treinos e registros rela
   workoutName: string;
   data: IRegisterWorkout_Data[];
   date: string;
+  comment?: string;
 }

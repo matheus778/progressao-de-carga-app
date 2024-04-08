@@ -1,10 +1,11 @@
-import { Calendar } from "@tamagui/lucide-icons";
-import { SafeAreaView } from "react-native";
+import { Calendar, Delete } from "@tamagui/lucide-icons";
+import { SafeAreaView, TouchableOpacity } from "react-native";
 import { ListItem, Text, View, YGroup } from "tamagui";
 import { useTheme, useRegisterWorkout } from '@/hooks';
 import { FlatList } from 'react-native';
+import { Link } from "expo-router";
 
-export default function Atividade() {
+export default function Activity() {
   const { theme } = useTheme();
   const { registerWorkout } = useRegisterWorkout();
 
@@ -32,18 +33,22 @@ export default function Atividade() {
               <FlatList
                 data={registerWorkout.reverse()}
                 renderItem={({ item, index }) => (
-                  <ListItem
-                    mt={'$4'}
-                    borderRadius={'$1'}
-                    borderWidth={1}
-                    borderColor={theme.bgBorder}
-                    bg={theme.bgCard}
-                    color={theme.textColor}
-                    width={'100%'}
-                    icon={Calendar}
-                    title={<Text color={theme.textColor}>{item.workoutName}</Text>}
-                    subTitle={<Text color={theme.textColor}>{item.date}</Text>}
-                  />
+                  <Link href={`/registerWorkout/details/${index}`} asChild>
+                    <TouchableOpacity>
+                      <ListItem
+                        mt={'$4'}
+                        borderRadius={'$1'}
+                        borderWidth={1}
+                        borderColor={theme.bgBorder}
+                        bg={theme.bgCard}
+                        color={theme.textColor}
+                        width={'100%'}
+                        icon={Calendar}
+                        title={<Text color={theme.textColor}>{item.workoutName}</Text>}
+                        subTitle={<Text color={theme.textColor}>{item.date}</Text>}
+                      />
+                    </TouchableOpacity>
+                  </Link>
                 )}
               />
 

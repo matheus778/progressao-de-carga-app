@@ -21,14 +21,20 @@ export default function addWorkout() {
   const [comment, setComment] = useState('');
   const [exercisesList, setExercisesList] = useState<IExercises[]>([]);
   const [currentExercise, setCurrentExercise] = useState('');
+
   const { setWorkout } = useWorkout();
 
   const addExercisesInList = (): void => {
+    if (currentExercise == '') {
+      Alert.alert('Campo em branco', 'Preencha Corretamente o Campo');
+      return;
+    }
+
     const newExercise: IExercises = {
       id: String(uuid.v4()),
       name: currentExercise,
     };
-    
+
     setExercisesList([...exercisesList, newExercise]);
     setCurrentExercise('');
   }
@@ -41,6 +47,23 @@ export default function addWorkout() {
   }
 
   const handleFormSubmit = async () => {
+    if (nameWorkout == '') {
+      Alert.alert('Campo em branco', 'O campo "nome do treino" é obrigatório.');
+      return;
+    }
+
+    if (exercisesList.length == 0) {
+      Alert.alert('Nenhum exercício adicionado ',
+        'É necessario ao menos um exercício para adicionar o treino.'
+      );
+      return;
+    }
+
+    if (comment != '' && comment.length < 5) {
+      Alert.alert('Observação invalida', 'O campo "Observação" é opcional. porém necessita de uma desrição com mais caracteres');
+      return
+    }
+
     workout.nameWorkout = nameWorkout;
     workout.exercises = [...exercisesList];
     workout.comment = comment;

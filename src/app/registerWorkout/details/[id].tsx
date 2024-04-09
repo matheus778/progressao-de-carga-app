@@ -15,7 +15,7 @@ export default function Details() {
       <View width={'90%'} alignSelf="center" mb={'$4'} gap={'$2'}>
         <H3 mt={'$2'} color={theme.textColor}>{data.workoutName}</H3>
         <Text color={theme.textColor} fontSize={16}><Calendar /> {data.date}</Text>
-        <Text color={theme.textColor} fontSize={16}><NotepadTextDashed /> Observação: {data.comment == ''? 'N/A':data.comment} </Text>
+        <Text color={theme.textColor} fontSize={16}><NotepadTextDashed /> Observação: {data.comment == '' ? 'N/A' : data.comment} </Text>
       </View>
 
       {data.data.map((el, index) => (
@@ -37,24 +37,24 @@ export default function Details() {
               backgroundColor={'$green4Light'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Aquecimento</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.warming.rep}</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.warming.weight}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.warming.rep == 0 ? '-' : el.warming.rep}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.warming.weight == 0 ? '-' : el.warming.weight}</Text>
             </View>
 
             <View flexDirection="row" alignItems="center" gap={'$5'} paddingVertical={'$2'}
               backgroundColor={'$yellow4Light'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Set</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.set.rep}</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.set.weight}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.set.rep == 0 ? '-' : el.set.rep}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.set.weight == 0 ? '-' : el.set.weight}</Text>
             </View>
 
             <View flexDirection="row" alignItems="center" gap={'$5'} paddingVertical={'$2'}
               backgroundColor={'$red4Light'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Superset</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.superSet.rep}</Text>
-              <Text color={theme.textColor} fontSize={16} w={80}>{el.superSet.weight}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.superSet.rep == 0 ? '-' : el.superSet.rep}</Text>
+              <Text color={theme.textColor} fontSize={16} w={80}>{el.superSet.weight == 0 ? '-' : el.superSet.weight}</Text>
             </View>
           </View>
         </View>

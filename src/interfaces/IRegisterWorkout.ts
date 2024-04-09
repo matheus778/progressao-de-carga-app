@@ -4,9 +4,7 @@ type RegisterInputType = {
 }
 
 export interface IRegisterWorkout_Data {
-  idExercise: string;
   nameExercise: string;
-  date: string;
   warming: RegisterInputType,
   set: RegisterInputType,
   superSet: RegisterInputType

@@ -1,13 +1,37 @@
 import { Calendar, Delete } from "@tamagui/lucide-icons";
-import { SafeAreaView, TouchableOpacity } from "react-native";
+import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
 import { ListItem, Text, View, YGroup } from "tamagui";
 import { useTheme, useRegisterWorkout } from '@/hooks';
 import { FlatList } from 'react-native';
 import { Link } from "expo-router";
+import { registerWorkoutStorage } from "@/localStorage";
 
 export default function Activity() {
   const { theme } = useTheme();
-  const { registerWorkout } = useRegisterWorkout();
+  const { registerWorkout, setRegisterWorkout } = useRegisterWorkout();
+
+  const handleDeleteRegisterWorkout = (id: number) => {
+    Alert.alert(
+      'Deletar Registro',
+      'Deja realmente deletar esse registro ? essa ação não podera ser desfeita!',
+      [
+        {
+          text: 'cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'deletar',
+          style: 'destructive',
+          onPress: async () => {
+            const deleteRegisterWorkout = [...registerWorkout];
+            deleteRegisterWorkout.splice(Number(id), 1);
+            await registerWorkoutStorage.set(deleteRegisterWorkout)
+            setRegisterWorkout([...deleteRegisterWorkout]);
+          }
+        }
+      ]
+    )
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -34,7 +58,7 @@ export default function Activity() {
                 data={registerWorkout.reverse()}
                 renderItem={({ item, index }) => (
                   <Link href={`/registerWorkout/details/${index}`} asChild>
-                    <TouchableOpacity>
+                    <TouchableOpacity onLongPress={()=>handleDeleteRegisterWorkout(index)}>
                       <ListItem
                         mt={'$4'}
                         borderRadius={'$1'}

@@ -1,6 +1,6 @@
 import { H3, Separator, Text, View } from "tamagui";
 import { Header } from "../../components/Header";
-import { FlatList, SafeAreaView, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { Plus } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";

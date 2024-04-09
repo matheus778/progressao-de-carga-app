@@ -86,9 +86,13 @@ export default function Activity() {
 }
 
 const NoRegisterWorkout = () => {
+  const { theme } = useTheme();
   return (
-    <View w={'90%'} alignSelf="center">
-      <Text>Nenhum treino foi salvo até o momento</Text>
+    <View f={1} w={'90%'} alignSelf="center" alignItems="center" justifyContent="center">
+      <Text  fontSize={18}
+        fontWeight={'900'}
+        color={theme.textColor}
+        textAlign="center">Nenhum treino foi salvo até o momento</Text>
     </View>
   )
 }

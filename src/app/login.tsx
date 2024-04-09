@@ -1,6 +1,7 @@
 import { Link } from "expo-router";
 import { Button, H2, Image, View, YStack } from "tamagui";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import LottieView from "lottie-react-native";
 
 export default function Login() {
   return (
@@ -18,20 +19,24 @@ export default function Login() {
           Olá, Seja Bem Vindo(a)
         </H2>
 
-        <Image
-          source={require('@/assets/login-illustration.png')}
-          width={300}
-          height={300}
-        />
+        <LottieView
+          autoPlay
+          style={{
+            width: 300,
+            height: 300,
+          }}
+          source={require('@/assets/animation-home.json')}
+        >
 
+        </LottieView>
         <YStack gap={'$3'} w={'100%'}>
           <Button
             bg={'#0E5447'}
             color={'#E5EDCC'}
             size={'$5'}
-            icon={ <FontAwesome name='google' color={'#E5EDCC'} size={32} />}
+            icon={<FontAwesome name='google' color={'#E5EDCC'} size={32} />}
           >
-          
+
             Login com a sua conta Google
           </Button>
 

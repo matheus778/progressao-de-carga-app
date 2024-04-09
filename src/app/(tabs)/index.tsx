@@ -1,4 +1,4 @@
-import { H3, Separator, Text, View } from "tamagui";
+import { H3, Image, Separator, Text, View } from "tamagui";
 import { Header } from "../../components/Header";
 import { FlatList, SafeAreaView } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
@@ -46,8 +46,8 @@ export default function Home() {
                 key={index}
                 id={item.id}
                 exercises={item.exercises}
-                />
-              }
+              />
+            }
           />
         ) : <NoWorkout />}
         <Link href={'/addWorkout'} asChild>
@@ -63,27 +63,23 @@ const NoWorkout = () => {
 
   return (
     <View
+      // height={'40%'}
       mt={'$5'}
       alignContent="center"
       justifyContent="center"
     >
-      <Text 
-      fontSize={18}
-      fontWeight={'900'}
-      color={theme.textColor}
-      textAlign="center"
+      <Text
+        fontSize={18}
+        fontWeight={'900'}
+        color={theme.textColor}
+        textAlign="center"
       >
         Nenhum treino para registrar, começe adicionando um novo treino a sua lista.
-        <LottieView
-        autoPlay
-          style={{
-            width: 300,
-            height: 300,
-          }}
-          source={require('@/assets/animation-home.json')}
-        >
-
-        </LottieView>
+        <Image
+          source={require('@/assets/login-illustration.png')}
+          width={300}
+          height={300}
+        />
       </Text>
     </View>
   )

@@ -3,6 +3,7 @@ import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { Redirect } from 'expo-router'
+import Login from './login';
 
 export default function App() {
 
@@ -23,7 +24,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Redirect href={'/(tabs)'}/>
+      <Login/>
     </TamaguiProvider>
   );
 }

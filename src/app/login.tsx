@@ -1,7 +1,8 @@
 import { Link } from "expo-router";
-import { Button, H2, Image, View, YStack } from "tamagui";
+import { Button, H2, Text, View, YStack } from "tamagui";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import LottieView from "lottie-react-native";
+import { TouchableOpacity } from "react-native";
 
 export default function Login() {
   return (
@@ -29,28 +30,43 @@ export default function Login() {
         >
 
         </LottieView>
-        <YStack gap={'$3'} w={'100%'}>
+        <YStack w={'100%'} gap={'$3'}>
+
           <Button
+            mt={'$4'}
             bg={'#0E5447'}
             color={'#E5EDCC'}
             size={'$5'}
-            icon={<FontAwesome name='google' color={'#E5EDCC'} size={32} />}
+            icon={<FontAwesome name='sign-in' color={'#E5EDCC'} size={32} />}
           >
 
-            Login com a sua conta Google
+            Entrar com e-mail e senha
           </Button>
-
+          <Button
+            variant="outlined"
+            size={'$5'}
+            borderColor={'#0E5447'}
+            color={'#0E5447'}
+          >
+            Realizar cadastro
+          </Button>
           <Link href={'/register'} asChild>
-            <Button
-              variant="outlined"
-              size={'$5'}
-              borderColor={'#0E5447'}
-              color={'#0E5447'}
-            >
-              Entrar sem login
-            </Button>
+            <TouchableOpacity
+              style={{
+                width: 200,
+                alignSelf: 'center', justifyContent: 'center',
+                alignItems: 'center', flexDirection: 'row', gap: 5
+              }}>
+                
+              <Text
+                color={'#0A3D3F'}
+                fontSize={16}
+                textDecorationLine="underline"
+                alignSelf="center">
+                Entrar sem fazer login
+              </Text>
+            </TouchableOpacity>
           </Link>
-
         </YStack>
       </View>
     </View>

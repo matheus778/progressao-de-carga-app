@@ -2,11 +2,9 @@ import { tamaguiConfig } from '../../tamagui.config';
 import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
-import { Redirect } from 'expo-router'
 import Login from './login';
 
 export default function App() {
-
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),

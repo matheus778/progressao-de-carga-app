@@ -8,7 +8,6 @@ import { CardHome } from "@/components/CardHome";
 import { registerWorkoutStorage, workoutStorage } from "@/localStorage";
 import { useEffect } from "react";
 import { useWorkout, useTheme, useRegisterWorkout } from '@/hooks';
-import LottieView from 'lottie-react-native';
 
 export default function Home() {
   const { theme } = useTheme();

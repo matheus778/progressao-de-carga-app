@@ -1,6 +1,9 @@
+import { useUser } from "@/hooks";
 import { Avatar, H3, Text, View, XStack, YStack } from "tamagui";
 
 function Header() {
+  const { user } = useUser();
+
   return (
     <View
       width={'100%'}
@@ -31,7 +34,7 @@ function Header() {
             color={'#E5EDCC'}
             fontSize={'$5'}
           >
-            Matheus
+            {user?.userName}
           </Text>
         </YStack>
       </XStack>

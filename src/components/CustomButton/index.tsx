@@ -1,7 +1,9 @@
 import { Button, ButtonProps } from "tamagui";
+import { ActivityIndicator } from 'react-native';
 
 interface CustomButtonProps extends ButtonProps{
   children?: string;
+  loading?: boolean;
 }
 
 function CustomButton({children,...props }:CustomButtonProps) {
@@ -12,7 +14,7 @@ function CustomButton({children,...props }:CustomButtonProps) {
       size={'$5'}
       {...props}
     >
-    {children}
+    {props.loading? <ActivityIndicator/>:children}
     </Button>
   )
 }

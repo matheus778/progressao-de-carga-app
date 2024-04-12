@@ -2,7 +2,9 @@ import { tamaguiConfig } from '../../tamagui.config';
 import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
-import Login from './login';
+
+import { useUser } from '@/hooks';
+import { Redirect } from 'expo-router';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -10,10 +12,14 @@ export default function App() {
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
 
+  const { user } = useUser();
+
   useEffect(() => {
+    console.log(user, 'ta vindo daqui')
     if (loaded) {
       // can hide splash screen here
     }
+
   }, [loaded])
 
   if (!loaded) {
@@ -22,7 +28,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Login/>
+      {user.userId == null ? <Redirect href={'/login'} /> : <Redirect href={'/(tabs)/'}/>}
     </TamaguiProvider>
   );
 }

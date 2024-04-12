@@ -5,7 +5,7 @@ import { CustomButton } from "../../components/CustomButton";
 import { Plus } from '@tamagui/lucide-icons';
 import { Link } from "expo-router";
 import { CardHome } from "@/components/CardHome";
-import { registerWorkoutStorage, workoutStorage } from "@/localStorage";
+import { registerWorkoutStorage, userStorage, workoutStorage } from "@/localStorage";
 import { useEffect } from "react";
 import { useWorkout, useTheme, useRegisterWorkout } from '@/hooks';
 
@@ -16,11 +16,11 @@ export default function Home() {
 
   useEffect(() => {
     const getWorkouts = async () => {
-      const workouts = await workoutStorage.get()
-      const registerWorkout = await registerWorkoutStorage.get();
+      // // const workouts = await workoutStorage.get()
+      // // const registerWorkout = await registerWorkoutStorage.get();
 
-      setWorkout(workouts.reverse());
-      setRegisterWorkout(registerWorkout);
+      // setWorkout(workouts.reverse());
+      // setRegisterWorkout(registerWorkout);
     }
     getWorkouts();
   }, [])

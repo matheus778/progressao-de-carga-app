@@ -1,5 +1,7 @@
-import { useTheme } from "@/hooks";
-import { Lightbulb, Moon, Sun } from "@tamagui/lucide-icons";
+import { useTheme, useWorkout } from "@/hooks";
+import { registerWorkoutStorage, userStorage, workoutStorage } from "@/localStorage";
+import { Lightbulb, Moon, PowerOff, Sun } from "@tamagui/lucide-icons";
+import { router } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
@@ -8,11 +10,21 @@ import { ListItem, Switch, Text, View, YGroup } from "tamagui";
 export default function Settings() {
   const { theme, toggleTheme } = useTheme();
   const [isChecked, setIsChecked] = useState(false);
+  const { setWorkout } = useWorkout();
 
   useEffect(() => {
   isChecked ? toggleTheme('dark') : toggleTheme('light');
   isChecked ? setStatusBarStyle('light') : setStatusBarStyle('dark')
-  }, [isChecked])
+  }, [isChecked]);
+
+  const handleLogout = () => {
+    userStorage.delete();
+    workoutStorage.delete();
+    registerWorkoutStorage.delete();
+
+    router.replace('/login');
+    return
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -47,6 +59,18 @@ export default function Settings() {
                 </Switch>
                 <Moon color={theme.textColor} />
               </View>
+            </ListItem>
+
+            <ListItem
+              onPress={handleLogout}
+              borderWidth={1}
+              borderColor={theme.bgBorder}
+              bg={theme.bgCard}
+              icon={PowerOff}
+              color={theme.textColor}
+              width={'100%'}
+              title={<Text color={theme.textColor}>Sair</Text>}
+            >
             </ListItem>
           </YGroup.Item>
         </YGroup>

@@ -41,6 +41,8 @@ export default function SignIn() {
   }
 
   const handleSignIn = () => {
+    setLoading(true);
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
@@ -50,7 +52,8 @@ export default function SignIn() {
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+        setLoading(false)
       })
   }
 
@@ -60,7 +63,7 @@ export default function SignIn() {
       behavior="padding">
 
       <View w={'90%'} alignSelf="center">
-        <H2 color={'#0A3D3F'}>Cadastrar nova conta</H2>
+        <H2 color={'#0A3D3F'}>Entrar</H2>
 
         <View mt={'$4'}>
           <Text
@@ -73,7 +76,7 @@ export default function SignIn() {
           <Input
             onChangeText={setEmail}
             keyboardType="email-address"
-            placeholder="Digite seu melhor email"
+            placeholder="Digite seu email"
             mt={'$2'}
             size={'$5'}
             borderWidth={3}
@@ -95,7 +98,7 @@ export default function SignIn() {
           </Text>
           <Input
             onChangeText={setPassword}
-            placeholder="Digite uma senha"
+            placeholder="Digite sua senha"
             secureTextEntry
             mt={'$2'}
             size={'$5'}

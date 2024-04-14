@@ -1,5 +1,5 @@
 import { CustomButton } from "@/components/CustomButton";
-import { KeyboardAvoidingView } from "react-native";
+import { Alert, KeyboardAvoidingView } from "react-native";
 import { H2, Input, Text, View } from "tamagui";
 
 import { router } from 'expo-router';
@@ -12,11 +12,38 @@ import { userStorage } from "@/localStorage";
 
 export default function SignUp() {
   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { setUser } = useUser();
+
+  const IsValidInput = () => {
+    if(name == ''){
+      Alert.alert('Campo de nome em branco', 'Preencha o campo de nome corretamente.');
+      return false;
+    }
+    
+    if(email == '') {
+      Alert.alert('Campo de email em branco', 'Preencha o campo de email corretamente.')
+    }
+
+    if(password ==  '') {
+      Alert.alert('Campo de senha em branco', 'Preencha o campo de senha corretamente.');
+      return false;
+    }
+
+    if(password.length < 8) {
+      Alert.alert('Senha inválida', 'Digite uma senha com no minimo 8 cáracteres.')
+      return false;
+    }
+    
+    if(password != repeatPassword) {
+      Alert.alert('Senha inválida', 'O campo confirmar senha tem que ser exatamente igual a senha digitada anteriormente.')
+      return false;
+    }
+  }
 
   const createUserInDatabase = async (user: User, name: string) => {
     set(ref(db, 'users/' + user.uid), {
@@ -41,6 +68,10 @@ export default function SignUp() {
   }
 
   const handleSignUp = () => {
+    if(!IsValidInput()) {
+      return
+    }
+
     setLoading(true);
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -52,7 +83,7 @@ export default function SignUp() {
         }
       })
       .catch((error) => {
-        console.log(error.code, error.message)
+        Alert.alert('Erro ao realizar cadastro', 'verifique seus dados e tente novamente')    
         setLoading(false)
       })
   };
@@ -118,6 +149,7 @@ export default function SignUp() {
           </Text>
           <Input
             onChangeText={setPassword}
+            secureTextEntry
             placeholder="Digite uma senha"
             mt={'$2'}
             size={'$5'}
@@ -139,7 +171,9 @@ export default function SignUp() {
             Confirme sua senha:
           </Text>
           <Input
+            onChangeText={setRepeatPassword}
             placeholder="Repita sua senha"
+            secureTextEntry
             mt={'$2'}
             size={'$5'}
             borderWidth={3}

@@ -1,7 +1,7 @@
 import { CustomButton } from "@/components/CustomButton";
 import { FontAwesome } from "@expo/vector-icons";
 import { Input, InputProps, ScrollView, Separator, Text, View } from "tamagui";
-import { useRegisterWorkout, useWorkout } from '@/hooks';
+import { useRegisterWorkout, useTheme, useWorkout } from '@/hooks';
 import { useEffect, useState } from "react";
 import { IWorkout } from "@/interfaces/IWorkout";
 import { IRegisterWorkout, IRegisterWorkout_Data } from "@/interfaces/IRegisterWorkout";
@@ -17,6 +17,7 @@ export default function RegisterWorkout() {
   const [register, setRegister] = useState<IWorkout>({} as IWorkout);
   const { id } = useLocalSearchParams()
   const { setRegisterWorkout } = useRegisterWorkout();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const searchIndex = workout.findIndex(el => el.id == id);
@@ -88,10 +89,9 @@ export default function RegisterWorkout() {
 
 
   return (
-    <KeyboardAvoidingView behavior="position">
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: theme.bg }} behavior="position">
 
       <ScrollView>
-
         <View
           w={'100%'}
           height={120}
@@ -102,9 +102,9 @@ export default function RegisterWorkout() {
             width={'90%'}
             alignSelf="center"
           >
-            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={'#0A3D3F'}>{register.nameWorkout}</Text>
-            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={'#0A3D3F'}>Observação: {register.comment}</Text>
-            <Text fontSize={18} fontWeight={'900'} color={'#0A3D3F'}>{getDate()}</Text>
+            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={theme.textColor}>{register.nameWorkout}</Text>
+            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={theme.textColor}>Observação: {register.comment}</Text>
+            <Text fontSize={18} fontWeight={'900'} color={theme.textColor}>{getDate()}</Text>
           </View>
         </View>
         <Separator bg={'#0A3D3F'} />
@@ -112,7 +112,7 @@ export default function RegisterWorkout() {
         {register.exercises && register.exercises.map((exercise, index) => (
           <View key={index} width={'90%'} alignSelf="center" mt={'$4'}>
             <Text
-              color={'#0A3D3F'}
+              color={theme.textColor}
               mb={'$4'}
               fontSize={20}
               fontWeight={'900'}
@@ -120,29 +120,29 @@ export default function RegisterWorkout() {
 
             <View gap={'$3'}>
               <View flexDirection="row" alignItems="center" gap={'$5'}>
-                <Text color={'#0A3D3F'} fontSize={16} w={110}>Fase</Text>
-                <Text color={'#0A3D3F'} fontSize={16} w={80}>Rep</Text>
-                <Text color={'#0A3D3F'} fontSize={16} w={80}>Carga</Text>
+                <Text color={theme.textColor} fontSize={16} w={110}>Fase</Text>
+                <Text color={theme.textColor} fontSize={16} w={80}>Rep</Text>
+                <Text color={theme.textColor} fontSize={16} w={80}>Carga</Text>
               </View>
               <View flexDirection="row" alignItems="center" gap={'$5'}>
-                <Text fontSize={16} w={110}>Aquecimento</Text>
+                <Text fontSize={16} color={theme.textColor} w={110}>Aquecimento</Text>
                 <CustomInput onChangeText={(text) => handleRegisterInput('rep', 'warming', index, text)} />
                 <CustomInput onChangeText={(text) => handleRegisterInput('weight', 'warming', index, text)} />
               </View>
 
               <View flexDirection="row" alignItems="center" gap={'$5'}>
-                <Text color={'#0A3D3F'} fontSize={16} w={110}>Set</Text>
+                <Text color={theme.textColor} fontSize={16} w={110}>Set</Text>
                 <CustomInput onChangeText={(text) => handleRegisterInput('rep', 'set', index, text)} />
                 <CustomInput onChangeText={(text) => handleRegisterInput('weight', 'set', index, text)} />
               </View>
 
               <View flexDirection="row" alignItems="center" gap={'$5'}>
-                <Text color={'#0A3D3F'} fontSize={16} w={110}>Superset</Text>
+                <Text color={theme.textColor} fontSize={16} w={110}>Superset</Text>
                 <CustomInput onChangeText={(text) => handleRegisterInput('rep', 'superSet', index, text)} />
                 <CustomInput onChangeText={(text) => handleRegisterInput('weight', 'superSet', index, text)} />
               </View>
             </View>
-            <Separator mt={'$5'} bg={'#0A3D3F'} />
+            <Separator mt={'$5'} bg={theme.textColor} />
           </View>
         ))}
 

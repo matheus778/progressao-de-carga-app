@@ -8,7 +8,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { ref, get } from 'firebase/database';
 import { useState } from "react";
-import { useRegisterWorkout, useUser, useWorkout } from "@/hooks";
+import { useRegisterWorkout, useTheme, useUser, useWorkout } from "@/hooks";
 
 export default function SignIn() {
   const [password, setPassword] = useState('');
@@ -18,6 +18,8 @@ export default function SignIn() {
   const { setUser } = useUser();
   const { setWorkout } = useWorkout();
   const { setRegisterWorkout } = useRegisterWorkout()
+
+  const { theme } = useTheme();
 
   const pushDataFirebase = (uid: string) => {
     get(ref(db, 'users/' + uid)).then((snapshot) => {
@@ -59,17 +61,17 @@ export default function SignIn() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:theme.bg }}
       behavior="padding">
 
       <View w={'90%'} alignSelf="center">
-        <H2 color={'#0A3D3F'}>Entrar</H2>
+        <H2 color={theme.textColor}>Entrar</H2>
 
         <View mt={'$4'}>
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Email:
           </Text>
@@ -92,7 +94,7 @@ export default function SignIn() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Senha:
           </Text>
@@ -111,7 +113,7 @@ export default function SignIn() {
             }} />
         </View>
 
-        <CustomButton onPress={handleSignIn} loading={loading} mt={'$4'}>Entrar</CustomButton>
+        <CustomButton onPress={() => handleSignIn()} loading={loading} mt={'$4'}>Entrar</CustomButton>
       </View>
     </KeyboardAvoidingView>
   );

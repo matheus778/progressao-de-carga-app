@@ -7,7 +7,7 @@ import { auth, db, firebaseApp } from '@/services/firebaseService';
 import { User, createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { useState } from "react";
-import { useUser } from "@/hooks";
+import { useTheme, useUser } from "@/hooks";
 import { userStorage } from "@/localStorage";
 
 export default function SignUp() {
@@ -18,6 +18,7 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
 
   const { setUser } = useUser();
+  const { theme } = useTheme();
 
   const IsValidInput = () => {
     if(name == ''){
@@ -26,7 +27,8 @@ export default function SignUp() {
     }
     
     if(email == '') {
-      Alert.alert('Campo de email em branco', 'Preencha o campo de email corretamente.')
+      Alert.alert('Campo de email em branco', 'Preencha o campo de email corretamente.');
+      return false;
     }
 
     if(password ==  '') {
@@ -43,6 +45,8 @@ export default function SignUp() {
       Alert.alert('Senha inválida', 'O campo confirmar senha tem que ser exatamente igual a senha digitada anteriormente.')
       return false;
     }
+
+    return true;
   }
 
   const createUserInDatabase = async (user: User, name: string) => {
@@ -90,16 +94,16 @@ export default function SignUp() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.bg }}
       behavior="padding">
 
       <View w={'90%'} alignSelf="center">
-        <H2 color={'#0A3D3F'}>Cadastrar nova conta</H2>
+        <H2 color={theme.textColor}>Cadastrar nova conta</H2>
         <View mt={'$5'}>
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Nome:
           </Text>
@@ -121,7 +125,7 @@ export default function SignUp() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Email:
           </Text>
@@ -143,7 +147,7 @@ export default function SignUp() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Senha:
           </Text>
@@ -166,7 +170,7 @@ export default function SignUp() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Confirme sua senha:
           </Text>

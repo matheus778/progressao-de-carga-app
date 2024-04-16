@@ -3,13 +3,15 @@ import { Button, Input, ListItem, ScrollView, Text, View } from "tamagui";
 import { Plus, Trash } from '@tamagui/lucide-icons';
 import { Alert, KeyboardAvoidingView } from "react-native";
 import { useState } from "react";
-import { useWorkout } from "@/hooks";
+import { useTheme, useWorkout } from "@/hooks";
 import { workoutStorage } from '@/localStorage';
 import { IWorkout, IExercises } from '@/interfaces/IWorkout';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
 
 export default function addWorkout() {
+  const { theme } = useTheme();
+
   const workout: IWorkout = {
     id: String(uuid.v4()),
     nameWorkout: '',
@@ -85,13 +87,12 @@ export default function addWorkout() {
   }
 
   return (
-    <ScrollView f={1} automaticallyAdjustsScrollIndicatorInsets>
+    <ScrollView f={1} bg={theme.bg} automaticallyAdjustsScrollIndicatorInsets>
       <KeyboardAvoidingView
         style={{
-          flex: 1,
+          paddingTop: 10,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#F9F9F9',
         }}
 
         behavior="padding"
@@ -100,7 +101,7 @@ export default function addWorkout() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Nome do Treino
           </Text>
@@ -131,7 +132,7 @@ export default function addWorkout() {
               <Text
                 fontSize={16}
                 fontWeight={'900'}
-                color={'#0E5447'}>
+                color={theme.textColor}>
                 Exercicios:
               </Text>
 
@@ -141,12 +142,13 @@ export default function addWorkout() {
               {exercisesList.map((item, index) => {
                 return (
                   <ListItem
+                  bg={theme.bg}
                     key={index}
                     gap={'$5'}
                     justifyContent="space-between"
                     alignItems="center">
                     <Text
-                      color={'#0E5447'}
+                      color={theme.textColor}
                       fontSize={16}
                     >
                       {index + 1} - {item.name}
@@ -199,7 +201,7 @@ export default function addWorkout() {
           <Text
             fontSize={16}
             fontWeight={'900'}
-            color={'#0E5447'}
+            color={theme.textColor}
           >
             Observação:
           </Text>

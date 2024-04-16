@@ -1,21 +1,35 @@
 import { useTheme, useWorkout } from "@/hooks";
-import { registerWorkoutStorage, userStorage, workoutStorage } from "@/localStorage";
+import { registerWorkoutStorage, settingStorage, userStorage, workoutStorage } from "@/localStorage";
 import { Lightbulb, Moon, PowerOff, Sun } from "@tamagui/lucide-icons";
 import { router } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
 import { ListItem, Switch, Text, View, YGroup } from "tamagui";
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme();
-  const [isChecked, setIsChecked] = useState(false);
-  const { setWorkout } = useWorkout();
+  const [isChecked, setIsChecked] = useState(theme.name == 'light' ? false : true);
+
+  useLayoutEffect(() => {
+    const getTheme = async () => {
+      const { theme } = await settingStorage.get();
+      theme == 'light' ? setIsChecked(false) : setIsChecked(true);
+    }
+
+    getTheme();
+  }, [])
 
   useEffect(() => {
-  isChecked ? toggleTheme('dark') : toggleTheme('light');
-  isChecked ? setStatusBarStyle('light') : setStatusBarStyle('dark')
+    isChecked ? toggleTheme('dark') : toggleTheme('light');
   }, [isChecked]);
+
+  useEffect(() => {
+    const saveTheme = async () => {
+      await settingStorage.set({ theme: isChecked ? 'dark' : 'light' })
+    }
+    saveTheme();
+  }, [isChecked])
 
   const handleLogout = () => {
     userStorage.delete();
@@ -39,7 +53,7 @@ export default function Settings() {
           Configurações
         </Text>
 
-        <YGroup alignSelf="center" bordered width={240} size="$4" w={'90%'} gap={5}>
+        <YGroup alignSelf="center" width={240} size="$4" w={'90%'} gap={'$5'}>
           <YGroup.Item>
             <ListItem
               borderWidth={1}

@@ -3,11 +3,13 @@ import { Button, H2, Text, View, YStack } from "tamagui";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import LottieView from "lottie-react-native";
 import { TouchableOpacity } from "react-native";
+import { useTheme } from "@/hooks";
 
 export default function Login() {
+  const { theme } = useTheme();
   return (
     <View
-      f={1} bg={'#F9F9F9'}
+      f={1} bg={theme.bg}
       ai={'center'}
       jc={"center"}
     >
@@ -16,7 +18,7 @@ export default function Login() {
           width={300}
           alignSelf="flex-start"
           lineHeight={"$9"}
-          color={'#0A3D3F'}>
+          color={theme.textColor}>
           Olá, Seja Bem Vindo(a)
         </H2>
 
@@ -49,8 +51,8 @@ export default function Login() {
             <Button
               variant="outlined"
               size={'$5'}
-              borderColor={'#0E5447'}
-              color={'#0E5447'}
+              borderColor={theme.name == 'light'?'#0E5447':theme.textColor}
+              color={theme.name == 'light'?'#0E5447':theme.textColor}
             >
               Realizar cadastro
             </Button>

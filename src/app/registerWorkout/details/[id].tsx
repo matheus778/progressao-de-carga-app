@@ -14,8 +14,8 @@ export default function Details() {
     <ScrollView f={1} bg={theme.bg}>
       <View width={'90%'} alignSelf="center" mb={'$4'} gap={'$2'}>
         <H3 mt={'$2'} color={theme.textColor}>{data.workoutName}</H3>
-        <Text color={theme.textColor} fontSize={16}><Calendar /> {data.date}</Text>
-        <Text color={theme.textColor} fontSize={16}><NotepadTextDashed /> Observação: {data.comment == '' ? 'N/A' : data.comment} </Text>
+        <Text color={theme.textColor} fontSize={16}><Calendar color={theme.textColor} /> {data.date}</Text>
+        <Text color={theme.textColor} fontSize={16}><NotepadTextDashed color={theme.textColor} /> Observação: {data.comment == '' ? 'N/A' : data.comment} </Text>
       </View>
 
       {data.data.map((el, index) => (
@@ -34,7 +34,7 @@ export default function Details() {
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={80}>Carga</Text>
             </View>
             <View flexDirection="row" alignItems="center" gap={'$5'} paddingVertical={'$2'}
-              backgroundColor={'$green4Light'}
+              backgroundColor={theme.name == 'light'?'$green4Light':'$green4Dark'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Aquecimento</Text>
               <Text color={theme.textColor} fontSize={16} w={80}>{el.warming.rep == 0 ? '-' : el.warming.rep}</Text>
@@ -42,7 +42,7 @@ export default function Details() {
             </View>
 
             <View flexDirection="row" alignItems="center" gap={'$5'} paddingVertical={'$2'}
-              backgroundColor={'$yellow4Light'}
+              backgroundColor={theme.name == 'light'?'$yellow4Light':'$yellow4Dark'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Set</Text>
               <Text color={theme.textColor} fontSize={16} w={80}>{el.set.rep == 0 ? '-' : el.set.rep}</Text>
@@ -50,7 +50,7 @@ export default function Details() {
             </View>
 
             <View flexDirection="row" alignItems="center" gap={'$5'} paddingVertical={'$2'}
-              backgroundColor={'$red4Light'}
+              backgroundColor={theme.name == 'light'?'$red4Light':'$red4Dark'}
             >
               <Text color={theme.textColor} fontWeight={'900'} fontSize={16} w={110}>Superset</Text>
               <Text color={theme.textColor} fontSize={16} w={80}>{el.superSet.rep == 0 ? '-' : el.superSet.rep}</Text>

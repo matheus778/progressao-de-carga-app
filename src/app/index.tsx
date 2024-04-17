@@ -15,7 +15,6 @@ export default function App() {
   const { user } = useUser();
 
   useEffect(() => {
-    console.log(user, 'ta vindo daqui')
     if (loaded) {
       // can hide splash screen here
     }

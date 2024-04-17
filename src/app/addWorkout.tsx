@@ -8,6 +8,7 @@ import { workoutStorage } from '@/localStorage';
 import { IWorkout, IExercises } from '@/interfaces/IWorkout';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
+import { toastCustom } from 'utils/toastCustom';
 
 export default function addWorkout() {
   const { theme } = useTheme();
@@ -28,7 +29,7 @@ export default function addWorkout() {
 
   const addExercisesInList = (): void => {
     if (currentExercise == '') {
-      Alert.alert('Campo em branco', 'Preencha Corretamente o Campo');
+      toastCustom('Campo em branco', 'Preencha Corretamente o Campo');
       return;
     }
 
@@ -50,19 +51,19 @@ export default function addWorkout() {
 
   const handleFormSubmit = async () => {
     if (nameWorkout == '') {
-      Alert.alert('Campo em branco', 'O campo "nome do treino" é obrigatório.');
+      toastCustom('Campo em branco', 'O campo "nome do treino" é obrigatório.');
       return;
     }
 
     if (exercisesList.length == 0) {
-      Alert.alert('Nenhum exercício adicionado ',
+      toastCustom('Nenhum exercício adicionado ',
         'É necessario ao menos um exercício para adicionar o treino.'
       );
       return;
     }
 
     if (comment != '' && comment.length < 5) {
-      Alert.alert('Observação invalida', 'O campo "Observação" é opcional. porém necessita de uma desrição com mais caracteres');
+      toastCustom('Observação muito curta');
       return
     }
 
@@ -75,7 +76,6 @@ export default function addWorkout() {
       const newData = [...getWorkout, workout];
       await workoutStorage.set(newData);
       setWorkout(newData)
-      console.log(newData)
       Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
       router.back();
       return

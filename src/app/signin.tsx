@@ -10,6 +10,8 @@ import { ref, get } from 'firebase/database';
 import { useState } from "react";
 import { useRegisterWorkout, useTheme, useUser, useWorkout } from "@/hooks";
 
+import { toastCustom } from 'utils/toastCustom';
+
 export default function SignIn() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -43,6 +45,11 @@ export default function SignIn() {
   }
 
   const handleSignIn = () => {
+    if(email == '' || password == '' || password.length < 8){
+      toastCustom('Preencha os campos corretamente');
+      return
+    }
+
     setLoading(true);
 
     signInWithEmailAndPassword(auth, email, password)
@@ -54,7 +61,10 @@ export default function SignIn() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.code);
+        if(error.code == 'auth/invalid-credential'){
+          toastCustom('Email ou senha invalido.')
+        }
         setLoading(false)
       })
   }

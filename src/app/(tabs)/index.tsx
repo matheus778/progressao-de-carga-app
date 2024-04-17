@@ -11,19 +11,7 @@ import { useWorkout, useTheme, useRegisterWorkout } from '@/hooks';
 
 export default function Home() {
   const { theme } = useTheme();
-  const { workout, setWorkout } = useWorkout();
-  const { setRegisterWorkout } = useRegisterWorkout();
-
-  useEffect(() => {
-    const getWorkouts = async () => {
-      // // const workouts = await workoutStorage.get()
-      // // const registerWorkout = await registerWorkoutStorage.get();
-
-      // setWorkout(workouts.reverse());
-      // setRegisterWorkout(registerWorkout);
-    }
-    getWorkouts();
-  }, [])
+  const { workout} = useWorkout();
 
   return (
     <View bg={theme.bg} f={1}>

@@ -27,7 +27,6 @@ export const RegisterWorkoutProvider = ({children}:{children: React.ReactNode}) 
   useEffect(() => {
     const asyncRegisterWorkoutData = async () => {
       await registerWorkoutStorage.set(registerWorkout);
-      console.log(user.userId )
       if (user.userId !== null && user.userId !== 'noAccount') {
         await update(ref(db, 'users/' + user.userId), {
           registerWorkouts: JSON.stringify(registerWorkout),

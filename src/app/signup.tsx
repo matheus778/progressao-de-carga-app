@@ -1,7 +1,6 @@
 import { CustomButton } from "@/components/CustomButton";
-import { Alert, KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView } from "react-native";
 import { H2, Input, Text, View } from "tamagui";
-
 import { router } from 'expo-router';
 import { auth, db, firebaseApp } from '@/services/firebaseService';
 import { User, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -9,6 +8,7 @@ import { ref, set } from 'firebase/database';
 import { useState } from "react";
 import { useTheme, useUser } from "@/hooks";
 import { userStorage } from "@/localStorage";
+import { toastCustom } from 'utils/toastCustom';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -21,31 +21,31 @@ export default function SignUp() {
   const { theme } = useTheme();
 
   const IsValidInput = () => {
-    if(name == ''){
-      Alert.alert('Campo de nome em branco', 'Preencha o campo de nome corretamente.');
-      return false;
-    }
-    
-    if(email == '') {
-      Alert.alert('Campo de email em branco', 'Preencha o campo de email corretamente.');
+    if (name == '') {
+      toastCustom('Campo de nome em branco');
       return false;
     }
 
-    if(password ==  '') {
-      Alert.alert('Campo de senha em branco', 'Preencha o campo de senha corretamente.');
+    if (email == '') {
+      toastCustom('Campo de email em branco');
       return false;
     }
 
-    if(password.length < 8) {
-      Alert.alert('Senha inválida', 'Digite uma senha com no minimo 8 cáracteres.')
-      return false;
-    }
-    
-    if(password != repeatPassword) {
-      Alert.alert('Senha inválida', 'O campo confirmar senha tem que ser exatamente igual a senha digitada anteriormente.')
+    if (password == '') {
+      toastCustom('Campo de senha em branco');
       return false;
     }
 
+    if (password.length < 8) {
+      toastCustom('Senha inválida', 'Digite uma senha com no minimo 8 cáracteres.')
+      return false;
+    }
+
+    if (password != repeatPassword) {
+
+      toastCustom('Senha inválida', 'As senhas digitadas não coincidem')
+      return false;
+    }
     return true;
   }
 
@@ -57,7 +57,7 @@ export default function SignUp() {
       registerWorkouts: "[]",
       config: "[]"
     });
-    
+
     const userData = {
       userId: user.uid,
       userName: name
@@ -65,14 +65,16 @@ export default function SignUp() {
 
     setUser(userData);
     await userStorage.set(userData);
+    toastCustom('Cadastro realizado com sucesso.', 
+    'você já pode efetuar o login normalmente','success');
     setLoading(false);
-
+    router.back()
     // router.dismissAll()
     // router.replace('/(tabs)/');
   }
 
   const handleSignUp = () => {
-    if(!IsValidInput()) {
+    if (!IsValidInput()) {
       return
     }
 
@@ -87,7 +89,7 @@ export default function SignUp() {
         }
       })
       .catch((error) => {
-        Alert.alert('Erro ao realizar cadastro', 'verifique seus dados e tente novamente')    
+        toastCustom('Erro ao realizar cadastro', 'verifique seus dados e tente novamente')
         setLoading(false)
       })
   };

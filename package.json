@@ -26,6 +26,7 @@
     "react-native": "0.73.5",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
+    "react-native-toast-message": "^2.2.0",
     "react-native-uuid": "^2.0.2",
     "tamagui": "^1.91.4"
   },

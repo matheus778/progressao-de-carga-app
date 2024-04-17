@@ -53,7 +53,7 @@ export default function Settings() {
           Configurações
         </Text>
 
-        <YGroup alignSelf="center" width={240} size="$4" w={'90%'} gap={'$5'}>
+        <YGroup alignSelf="center" width={240} size="$4" w={'90%'} gap={'$3'}>
           <YGroup.Item>
             <ListItem
               borderWidth={1}

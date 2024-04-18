@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useRegisterWorkout, useTheme, useUser, useWorkout } from "@/hooks";
 
 import { toastCustom } from 'utils/toastCustom';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignIn() {
   const [password, setPassword] = useState('');
@@ -105,7 +106,7 @@ export default function SignIn() {
             fontSize={16}
             fontWeight={'900'}
             color={theme.textColor}
-          >
+            >
             Senha:
           </Text>
           <Input
@@ -123,7 +124,7 @@ export default function SignIn() {
             }} />
         </View>
 
-        <CustomButton onPress={() => handleSignIn()} loading={loading} mt={'$4'}>Entrar</CustomButton>
+        <CustomButton onPress={() => {handleSignIn()}} loading={loading} mt={'$4'}>Entrar</CustomButton>
       </View>
     </KeyboardAvoidingView>
   );

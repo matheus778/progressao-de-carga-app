@@ -17,7 +17,7 @@ export default function Layout() {
               <Stack screenOptions={{
                 headerStyle: { backgroundColor: '#0A3D3F' },
                 headerTitleStyle: { color: '#E5EDCC' },
-                headerTintColor: '#E5EDCC'
+                headerTintColor: '#E5EDCC',
               }}>
                 <Stack.Screen name='index' options={{ headerShown: false }} />
                 <Stack.Screen name='login' options={{ headerShown: false }} />

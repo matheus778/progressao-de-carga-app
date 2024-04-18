@@ -1,6 +1,7 @@
 import { settingStorage } from '@/localStorage';
-import { setStatusBarStyle } from 'expo-status-bar';
+import { setStatusBarBackgroundColor, setStatusBarStyle } from 'expo-status-bar';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 
 interface ThemeProps {
   name: string;
@@ -49,13 +50,29 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<ThemeProps>({ ...lightTheme });
 
   useEffect(() => {
-    theme.name == 'light' ? setStatusBarStyle('dark') : setStatusBarStyle("light");
-  }, [theme]);
+    if (Platform.OS == 'android') {
+      setStatusBarBackgroundColor('#0A3D3F', true);
+      setStatusBarStyle('light');
+      return;
+    }
+
+    else {
+      if (theme.name == 'light') {
+        setStatusBarStyle('dark')
+      }
+
+      else {
+        setStatusBarStyle('light')
+      }
+    }
+  }, [theme])
 
   useEffect(() => {
     const getTheme = async () => {
       const { theme } = await settingStorage.get();
-      toggleTheme(theme);
+      if (theme) {
+        toggleTheme(theme);
+      }
     }
 
     getTheme();

@@ -1,16 +1,18 @@
 import { useUser } from "@/hooks";
-import { Avatar, H3, Text, View, XStack, YStack } from "tamagui";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Avatar, Text, View, XStack, YStack } from "tamagui";
 
 function Header() {
   const { user } = useUser();
 
   return (
+    <SafeAreaView>
+
     <View
       width={'100%'}
-      height={80}
       bg={'#0A3D3F'}
-      paddingTop={'$4'}
-      paddingBottom={'$4'}
+      paddingTop={'$2'}
+      paddingBottom={'$2'}
       alignItems="center"
     >
       <XStack
@@ -19,7 +21,7 @@ function Header() {
         width={'90%'}
         >
         <Avatar circular size="$4">
-          <Avatar.Image src="http://picsum.photos/200/300" />
+          <Avatar.Image src="https://picsum.photos/200/300?grayscale" />
           <Avatar.Fallback bc="red" />
         </Avatar>
 
@@ -28,17 +30,18 @@ function Header() {
             color={'#E5EDCC'}
             fontSize={'$8'}
             fontWeight={'900'}
-          >Bem Vindo,</Text>
+            >Bem Vindo</Text>
 
           <Text
             color={'#E5EDCC'}
             fontSize={'$5'}
-          >
+            >
             {user?.userName}
           </Text>
         </YStack>
       </XStack>
     </View>
+            </SafeAreaView>
   )
 }
 

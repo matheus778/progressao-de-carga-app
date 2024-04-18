@@ -1,8 +1,7 @@
-import { useTheme, useWorkout } from "@/hooks";
+import { useTheme } from "@/hooks";
 import { registerWorkoutStorage, settingStorage, userStorage, workoutStorage } from "@/localStorage";
 import { Lightbulb, Moon, PowerOff, Sun } from "@tamagui/lucide-icons";
 import { router } from "expo-router";
-import { setStatusBarStyle } from "expo-status-bar";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
 import { ListItem, Switch, Text, View, YGroup } from "tamagui";
@@ -14,7 +13,9 @@ export default function Settings() {
   useLayoutEffect(() => {
     const getTheme = async () => {
       const { theme } = await settingStorage.get();
-      theme == 'light' ? setIsChecked(false) : setIsChecked(true);
+      if(theme) {
+        theme == 'light' ? setIsChecked(false) : setIsChecked(true);
+      }
     }
 
     getTheme();
@@ -35,7 +36,6 @@ export default function Settings() {
     userStorage.delete();
     workoutStorage.delete();
     registerWorkoutStorage.delete();
-
     router.replace('/login');
     return
   }

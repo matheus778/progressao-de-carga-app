@@ -2,9 +2,9 @@ import { tamaguiConfig } from '../../tamagui.config';
 import { TamaguiProvider } from 'tamagui';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
-
 import { useUser } from '@/hooks';
 import { Redirect } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -16,7 +16,8 @@ export default function App() {
 
   useEffect(() => {
     if (loaded) {
-      // can hide splash screen here
+      // setStatusBarBackgroundColor('red',true);
+      // setStatusBarStyle('light'); 
     }
 
   }, [loaded])
@@ -27,7 +28,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      {user.userId == null ? <Redirect href={'/login'} /> : <Redirect href={'/(tabs)/'}/>}
+      {user.userId == null ? <Redirect href={'/login'} /> : <Redirect href={'/(tabs)/'} />}
     </TamaguiProvider>
   );
 }

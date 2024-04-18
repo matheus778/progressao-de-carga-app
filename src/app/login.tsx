@@ -1,8 +1,7 @@
-import { Link, router } from "expo-router";
-import { Button, H2, Text, View, YStack } from "tamagui";
+import { Link } from "expo-router";
+import { Button, H2, View, YStack } from "tamagui";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import LottieView from "lottie-react-native";
-import { TouchableOpacity } from "react-native";
 import { useTheme } from "@/hooks";
 
 export default function Login() {

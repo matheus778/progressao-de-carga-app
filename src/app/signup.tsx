@@ -1,6 +1,6 @@
 import { CustomButton } from "@/components/CustomButton";
 import { KeyboardAvoidingView } from "react-native";
-import { H2, Input, Text, View } from "tamagui";
+import { H2, Input, ScrollView, Text, View } from "tamagui";
 import { router } from 'expo-router';
 import { auth, db, firebaseApp } from '@/services/firebaseService';
 import { User, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -99,7 +99,7 @@ export default function SignUp() {
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.bg }}
       behavior="padding">
 
-      <View w={'90%'} alignSelf="center">
+      <ScrollView w={'90%'} mt={'$3'} alignSelf="center" showsVerticalScrollIndicator={false}>
         <H2 color={theme.textColor}>Cadastrar nova conta</H2>
         <View mt={'$5'}>
           <Text
@@ -191,7 +191,7 @@ export default function SignUp() {
             }} />
         </View>
         <CustomButton loading={loading} onPress={handleSignUp} mt={'$4'}>Realizar Cadastro</CustomButton>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

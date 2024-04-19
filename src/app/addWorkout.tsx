@@ -75,29 +75,31 @@ export default function addWorkout() {
     if (getWorkout) {
       const newData = [...getWorkout, workout];
       await workoutStorage.set(newData);
-      setWorkout(newData)
-      Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
+      setWorkout(newData);
+      toastCustom('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial', 'success');
       router.back();
       return
     }
     await workoutStorage.set(workout);
     setWorkout([workout]);
-    Alert.alert('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial');
+    toastCustom('Novo treino adicionado com sucesso', 'O treino já está disponivel na tela inicial', 'success');
     router.back();
   }
 
   return (
-    <ScrollView f={1} bg={theme.bg} automaticallyAdjustsScrollIndicatorInsets>
-      <KeyboardAvoidingView
-        style={{
-          paddingTop: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+    <KeyboardAvoidingView
+      style={{
+        flex:1,
+        paddingTop: 10,
+        backgroundColor: theme.bg,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
 
-        behavior="padding"
-      >
-        <View w={'90%'}>
+      behavior="padding"
+    >
+      <ScrollView bg={theme.bg} width={'90%'} alignSelf="center">
+        <View>
           <Text
             fontSize={16}
             fontWeight={'900'}
@@ -119,7 +121,7 @@ export default function addWorkout() {
             }} />
         </View>
 
-        <View w={'90%'} mt={'$4'}>
+        <View w={'100%'} mt={'$4'}>
 
 
           <View mt={'$4'}>
@@ -142,7 +144,7 @@ export default function addWorkout() {
               {exercisesList.map((item, index) => {
                 return (
                   <ListItem
-                  bg={theme.bg}
+                    bg={theme.bg}
                     key={index}
                     gap={'$5'}
                     justifyContent="space-between"
@@ -197,7 +199,7 @@ export default function addWorkout() {
           </CustomButton>
         </View>
 
-        <View w={'90%'} mt={'$4'}>
+        <View mt={'$4'}>
           <Text
             fontSize={16}
             fontWeight={'900'}
@@ -221,7 +223,7 @@ export default function addWorkout() {
           />
           <CustomButton mt={'$3'} onPress={handleFormSubmit}>Adicionar Treino</CustomButton>
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }

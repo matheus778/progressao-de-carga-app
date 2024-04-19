@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import { IWorkout } from "@/interfaces/IWorkout";
 import { IRegisterWorkout, IRegisterWorkout_Data } from "@/interfaces/IRegisterWorkout";
 import { getDate } from '@/utils/getDate';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { registerWorkoutStorage } from "@/localStorage";
 import { Alert, KeyboardAvoidingView } from "react-native";
+import { toastCustom } from "@/utils/toastCustom";
 
 let registerData: IRegisterWorkout_Data[] = [];
 
@@ -63,11 +64,15 @@ export default function RegisterWorkout() {
         const newData = [...getRegisterWorkout, data];
         await registerWorkoutStorage.set(newData);
         setRegisterWorkout(newData);
+        toastCustom('Treino registrado com sucesso', '', 'success');
+        router.back();
         return;
       }
 
       await registerWorkoutStorage.set(data);
-      setRegisterWorkout([data])
+      setRegisterWorkout([data]);
+      toastCustom('Treino registrado com sucesso', '', 'success');
+      router.back();
     }
 
     Alert.alert('Deseja registrar esse treino ?',
@@ -103,7 +108,7 @@ export default function RegisterWorkout() {
             alignSelf="center"
           >
             <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={theme.textColor}>{register.nameWorkout}</Text>
-            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={theme.textColor}>Observação: {register.comment}</Text>
+            <Text fontSize={18} fontWeight={'900'} mb={'$1'} color={theme.textColor}>Observação: {register.comment == '' ? 'N/A' : register.comment}</Text>
             <Text fontSize={18} fontWeight={'900'} color={theme.textColor}>{getDate()}</Text>
           </View>
         </View>

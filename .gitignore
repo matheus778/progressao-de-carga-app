@@ -3,6 +3,7 @@
 # dependencies
 node_modules/
 android/
+src/services/firebaseService.ts
 
 # Expo
 .expo/
